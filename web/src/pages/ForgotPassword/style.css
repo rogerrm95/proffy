@@ -1,0 +1,66 @@
+#forgot-pass-content{
+    display: grid;
+    grid-template-rows: 150px 100px 50px 125px 100px;
+    grid-auto-columns: 1fr;
+    grid-template-areas: 
+    'back' 'title' 'description' 'form' 'button';
+}
+
+#forgot-pass-content img{
+    grid-area: back;
+}
+
+#forgot-pass-content > img:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+#forgot-pass-content h2{
+    grid-area: title;
+
+    color: var(--color-text-title);
+    font-size: 3.2rem;
+    padding-right: 20rem;
+    line-height: 4rem;
+}
+
+#forgot-pass-content p{
+    grid-area: description;
+}
+
+#forgot-pass-content form{
+    grid-area: form;
+}
+
+#forgot-pass-content button{
+    grid-area: button;
+    justify-self: center;
+
+    width: 28rem;
+    height: 5rem;
+    border: none;
+    border-radius: 0.8rem;
+    outline: none;
+    align-self: center;
+    font: 700 2.0rem Archivo;
+}
+
+@media(min-width:700px) {
+   
+    #forgot-pass-content{
+        grid-template-rows: 300px 100px 50px 125px 100px;
+        width: 100vw;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #forgot-pass-content img{
+        align-self: start;
+        margin-top: 5rem;
+    }
+
+    #forgot-pass-content h2{
+        padding: 0;
+    }
+}

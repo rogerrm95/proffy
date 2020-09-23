@@ -1,0 +1,109 @@
+#login-content {
+    display: grid;
+    grid-template-rows: 75px 200px 25px 150px 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        'title title'
+        'form form'
+        'check forgotPass'
+        'button button'
+        'footer footer';
+
+    align-items: center;
+    justify-content: center;
+}
+
+#login-content h2 {
+    grid-area: title;  
+    color: var(--color-text-title)
+}
+
+#login-content form{
+    grid-area: form;
+}
+
+#login-content input+label {
+    font-size: 1.4rem;
+    margin-left: 1rem;
+}
+
+#login-content #checkbox {
+    grid-area: check;
+
+    display: flex;
+    align-items: baseline;
+}
+
+#login-content #checkbox label{
+    font-size: 1.3rem
+}
+
+#login-content .link {
+    text-decoration: none;
+    color: var(--color-text-complement);
+    text-align: right;
+}
+
+#login-content #forgot-pass{
+    grid-area: forgotPass;
+    font-size: 1.4rem;
+}
+
+#login-content #forgot-pass:hover {
+    opacity: 0.7;
+}
+
+#login-content button{
+    grid-area: button;
+    justify-self: center;
+
+    width: 28rem;
+    height: 5rem;
+    border: none;
+    border-radius: 0.8rem;
+    outline: none;
+    font: 500 2.0rem Archivo;
+}
+
+#login-content footer{
+    grid-area: footer;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#login-content footer p{
+    margin: 0;
+}
+
+#login-content footer #link-signup {
+    color: var(--color-primary-darker);
+    text-decoration-line: underline;
+    font-weight: bold;
+}
+
+#login-content footer #link-signup:hover{
+    opacity: 0.7;
+}
+
+/* BREAKING POINT */
+
+@media (min-width:700px) {
+
+    #login-content {
+        grid-template-rows: 175px 200px 25px 150px 200px;
+    }
+
+    #login-content input+label {
+        font-size: 1.2rem;
+    }
+
+    #login-content #forgot-pass{
+        font-size: 1.3rem;
+    }
+
+    #login-content footer {
+        align-self: end;
+    }
+}   

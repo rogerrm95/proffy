@@ -1,0 +1,43 @@
+.select-block{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.select-block + .select-block{
+    margin-top: 1.4rem;
+}
+
+.select-block label{
+    font-size: 1.4rem;
+}
+
+.select-block select{
+    background-color: var(--color-input-background);
+    width: 100%;
+    min-width: 150px;
+    max-width: 350px;
+    height: 5.6rem;
+    margin-top: 0.8rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--color-line-in-white);
+    outline: none;
+    padding: 0 1.6rem;
+    font: 1.6rem Archivo;
+    color: var(--color-text-complement);
+    -webkit-user-select: text;
+}
+
+.select-block select option{
+    color: var(--color-text-title);
+}
+
+.select-block:focus-within::after{
+    content: '';
+    height: 50%;
+    width: 3px;
+    background-color: var(--color-primary-light);
+    position: absolute;
+    left: 0.8rem;
+    bottom: 5px
+}

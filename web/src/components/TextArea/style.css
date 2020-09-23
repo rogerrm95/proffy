@@ -1,0 +1,43 @@
+.textarea-block{
+    position: relative;
+    margin-top: 1.4rem;
+}
+
+.textarea-block label{
+    font-size: 1.4rem;
+}
+
+.textarea-block textarea{
+    background-color: var(--color-textarea-background);
+    width: 100%;
+    height: 16rem;
+    min-height: 8rem;
+    max-height: 30rem;
+    margin-top: 0.8rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--color-line-in-white);
+    outline: none;
+    padding: 1.2rem;
+    resize: vertical;
+    font: 1.6rem Archivo
+}
+
+.textarea-block textarea{
+    line-height: 2.6rem;
+}
+
+.textarea-block label span{
+    font-size: 1.2rem;
+    margin-left: 1.2rem
+}
+
+.textarea-block:focus-within::after{
+    content: '';
+    width: calc(100% - 3.2rem);
+    height: 2px;
+    background-color: var(--color-primary-light);
+    position: absolute;
+    left: 1.6rem;
+    right: 1.6rem;
+    bottom: 1rem;
+}

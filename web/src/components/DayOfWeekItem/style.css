@@ -1,0 +1,28 @@
+#day-item-container{
+    height: 10rem;
+    width: 9.6rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.4rem;
+    margin: 0.3rem;
+    
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary-light);
+
+    background-color: var(--color-box-times);
+    border: solid 2px var(--color-border-light);
+    border-radius: 0.8rem;
+}
+
+#day-item-container span{
+    color: var(--color-text-complement);
+    font-size: 1.15rem;
+}
+
+.container-disable{
+    opacity: 0.6 !important ;
+}

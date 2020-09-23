@@ -1,0 +1,62 @@
+#signup-content{
+    display: grid;
+    grid-template-rows: 75px 40px 40px 375px 100px;
+    grid-template-areas: 
+    'back' 'title' 'description' 'formBox' 'button';
+}
+
+#signup-content > img{
+    grid-area: back;
+    cursor: pointer;
+}
+
+#signup-content h2{
+    grid-area: title;
+    color: var(--color-text-title);
+}
+
+#signup-content p{
+    grid-area: description;
+}
+
+#signup-content form{
+    grid-area: formBox;
+    align-self: center;
+}
+
+#signup-content form input{
+    margin: 0;
+}
+
+#signup-content button{
+    grid-area: button;
+
+    justify-self: center;
+    align-self: baseline;
+    width: 28rem;
+    height: 5rem;
+    border: none;
+    border-radius: 0.8rem;
+    outline: none;
+    font: 700 2.0rem Archivo;
+}
+
+/* BREAKING POINT */
+
+@media(min-width:700px){
+
+    #signup-content{
+        width: 100vw;
+        height: 100vh;
+
+        grid-template-rows: 125px 50px 50px 450px 150px;
+    }
+
+    #signup-content > img{
+        margin-top: 3rem;
+    }
+
+    #signup-content button{
+        align-self: center;
+    }
+}

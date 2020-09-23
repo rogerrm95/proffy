@@ -1,0 +1,22 @@
+.top-bar-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.6rem;
+    
+    color: var(--color-text-in-primary);
+    background-color: var(--color-primary-darker);
+}
+
+.top-bar-container a{
+    height: 3.2rem;
+    transition: opacity 0.2s;
+}
+
+.top-bar-container a:hover{
+    opacity: 0.6;
+}
+
+.top-bar-container > img{
+    height: 1.6rem;
+}

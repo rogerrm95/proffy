@@ -1,0 +1,371 @@
+#page-perfil{
+    width: 100vw;
+    height: 100vh;
+}
+
+.perfil-info{
+    height: 35vh;
+    background-color: var(--color-primary);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.perfil-info #info-photo {
+    width: 135px;
+    max-width: 175px;
+    border-radius: 50%;
+}
+
+.perfil-info #info-camera{
+    position: relative;
+    top: -35px;
+    left: 30px;
+
+    width: 35px;
+    padding: 0.5rem;
+    border-radius: 40%;
+    background-color: var(--color-secundary-dark);
+    transition: 0.3s;
+}
+
+.perfil-info #info-camera:hover{
+    cursor: pointer;
+    padding: 0.7rem;
+    background-color: var(--color-primary-dark);
+    border: 2px solid #FFF
+}
+
+.perfil-info > h2 {
+    color: var(--color-title-in-primary);
+}
+
+/* MAIN - Formularios */
+
+#page-perfil main{
+    background-color: var(--color-box-base);
+    width: 100%;
+    max-width: 74rem;
+    border-radius: 0.8rem;
+    margin: -3.2rem auto 3.2rem;
+    padding-top: 6.4rem;
+    overflow: hidden;
+}
+
+#page-perfil main fieldset{
+    border: 0;
+    padding: 0 2.4rem;
+
+}
+
+#page-perfil main fieldset + fieldset{
+    margin-top: 6.4rem;
+}
+
+#page-perfil main fieldset legend{
+    font: 700 2.4rem Archivo;
+    color: var(--color-text-title);
+    margin-bottom: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 1.6rem;
+    border-bottom: 1px solid var(--color-line-in-white);
+}
+
+#page-perfil main fieldset legend button{
+    background: none;
+    border: 0;
+    color: var(--color-primary);
+    font: 700 1.6rem Archivo;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+#page-perfil main fieldset legend button:hover{
+    color: var(--color-primary-dark);
+}
+
+
+#page-perfil main fieldset .textarea-block + .input-block,
+#page-perfil main fieldset .select-block + .input-block{
+    margin-top: 2.4rem;
+}
+
+#page-perfil main label{
+    color: var(--color-text-complement);
+}
+
+#page-perfil #schedule-line{
+    background-color: var(--color-text-complement);
+    height: 1px;
+    text-align: center;
+    margin: 4rem 0rem;
+}
+
+#page-perfil #schedule-line button{
+    background-color: var(--color-box-base);
+    border: none;
+    position: relative;
+    top: -1.2rem;
+    width: 18rem;
+    color: var(--color-button-delete);
+    font-weight: 700;
+    transition: 0.6s;
+}
+
+#page-perfil main #schedule-line button:hover{
+    background-color: var(--color-button-delete-dark);
+    color: var(--color-box-base);
+    border-radius: 0.8rem;
+    cursor: pointer;
+    text-decoration-line: none;
+}
+
+#page-perfil main #schedule-line button:focus{
+    outline: none;
+    border: none;
+}
+
+#page-perfil main #no-time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-background);
+    padding: 2rem;
+    border-radius: 0.8rem;
+}
+
+#page-perfil main #no-time img{
+    width: 30px;
+    margin-left: 0.8rem;
+}
+
+/* FOOTER */
+
+#page-perfil main footer{
+    padding: 4rem 2.4rem;
+    background-color: var(--color-box-footer);
+    border-top: solid 1px var(--color-line-in-white);
+    margin-top: 2.6rem;
+}
+
+#page-perfil main footer p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    color: var(--color-text-complement);
+}
+
+#page-perfil main footer p img{
+    margin-right: 2rem;
+}
+
+#page-perfil main footer button{
+    width: 100%;
+    height: 5.6rem;
+    background: var(--color-secundary);
+    color: var(--color-button-text);
+    border: 0;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    font: 700 1.6rem Archivo;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    margin-top: 3.2rem;
+}
+
+#page-perfil main footer button:hover{
+    background: var(--color-secundary-dark);
+}
+
+
+/* POP - UP */
+
+#pop-up{
+    background-color: var(--color-background-popup);
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    top:0;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#pop-up .window{
+    height: 30vh;
+    width: 70vw;
+    background-color: var(--color-background);
+    border-radius: 0.8rem;
+    padding: 2rem;
+
+    display: grid;
+    grid-template-rows: 50px 90px 100px;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#pop-up .window h2{
+    margin-bottom: 2rem;
+}
+
+#pop-up .buttons-container{
+    justify-self: center;
+}
+
+#pop-up .buttons-container button{
+    padding: 1rem;
+    margin: 0.8rem;
+    border: none;
+    border-radius: 0.8rem;
+    outline: none;
+    color: var(--color-title-in-primary);
+    transition: 0.3s;
+}
+
+#pop-up #save{
+    background-color: var(--color-secundary);
+}
+
+#pop-up #delete{
+    background-color: var(--color-button-delete);
+}
+
+#pop-up #close{
+    background-color: var(--color-button-disable);
+}
+
+#pop-up #save:hover {
+    cursor: pointer;
+    background-color: var(--color-secundary-dark);
+}
+
+#pop-up #delete:hover{
+    cursor: pointer;
+    background-color: var(--color-button-delete-dark);
+}
+
+#pop-up #close:hover{
+    cursor: pointer;
+    background-color: var(--color-button-disable-dark);
+}
+
+@media (min-width: 700px) {
+    #pop-up .window{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 60vw;
+        max-width: 600px;
+    }
+
+    .window .buttons-container{
+        align-self: center
+    }
+
+    .window .input-block{
+        width: 32rem;
+        max-width: 300px;
+        align-self: center;
+    }
+
+    #page-perfil main fieldset{
+        padding: 0 6.4rem;
+    }
+
+    /* FORMULÁRIO REFERENTE AO USUÁRIO */
+
+    #page-perfil main #forms-user > div{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+
+    #page-perfil main #forms-user .input-block{
+        margin: 0
+    }
+
+    #page-perfil main #forms-user #input-block-lastname{
+        width: 60%;
+    }
+
+    #page-perfil main #forms-user #input-block-email{
+        margin-top: 2rem;
+        width: 60%;
+    }
+
+    #page-perfil main #forms-user #input-block-whatsapp{
+        margin-top: 2rem;
+    }
+
+    #page-perfil main #forms-user .textarea-block{
+        margin-top: 2rem;
+        width: 100%;
+    }
+
+    /* FORMULÁRIO REFERENTE Á MATÉRIA */
+
+    #page-perfil main #forms-subjects > div{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #page-perfil main #forms-subjects #select-block-subject{
+        width: 50%;
+    }
+    #page-perfil main #forms-subjects #input-block-cost {
+        margin: 0;
+        width: 45%;
+        padding-top: 0.5rem;
+    }
+
+    /* FORMULÁRIO REFERENTE AOS HORÁRIOS */
+
+    #page-perfil main .schedule-item{
+        display:  grid;
+        grid-template-rows: 100px 75px;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1rem;
+    }
+
+    #page-perfil main .schedule-item #schedule-line{
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+
+    #page-perfil main .schedule-item .input-block{
+        margin-top: 0 !important;
+    }
+
+    #page-perfil main footer{
+        padding: 4rem 4.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #page-perfil main footer p{
+        justify-content: space-between;
+    }
+
+    #page-perfil main footer button{
+        width: 20rem;
+        margin-top: 0;
+    }
+}
