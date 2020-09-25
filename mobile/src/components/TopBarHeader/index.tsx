@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { TouchableOpacity, View, Text, Image } from 'react-native'
 import { BorderlessButton } from 'react-native-gesture-handler'
@@ -15,13 +16,12 @@ interface TopBarHeaderProps {
 
 const TopBarHeader: React.FC<TopBarHeaderProps> = ({ title }) => {
 
-    function handleToLandingPage(){
-    }
+    const navigate = useNavigation()
 
     return (
         <View style={styles.container}>
 
-            <BorderlessButton onPress={handleToLandingPage} style={styles.images}>
+            <BorderlessButton onPress={() => navigate.goBack()} style={styles.images}>
                 <Icon name={'arrow-left'} color={'#FFF'} size={25}/>
             </BorderlessButton>
 

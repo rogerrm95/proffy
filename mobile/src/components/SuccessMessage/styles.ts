@@ -10,38 +10,44 @@ const styles = StyleSheet.create({
 
     content: {
         flex: 1,
-        justifyContent: "center"
+        justifyContent: "center",
     },
 
     title: {
         color: '#FFF',
         fontFamily: 'Archivo_700Bold',
-        fontSize: 32,
-        lineHeight: 37,
-        maxWidth: 200
+        fontSize: 34,
+        lineHeight: 40,
+        maxWidth: 250
     },
 
     description: {
         marginTop: 24,
         color: "#d4c2ff",
-        fontSize: 16,
-        lineHeight: 26,
+        fontSize: 18,
+        lineHeight: 28,
         fontFamily: 'Poppins_400Regular',
-        maxWidth: 240
+        textAlign: "justify",
+        maxWidth: 250,
     },
 
     okButton: {
         backgroundColor: '#04d361',
         marginVertical: 40,
         height: 58,
+        flexDirection: 'row',
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8
     },
 
+    iconHome:{
+        marginRight: 15
+    },
+
     okText: {
         color: "#FFF",
-        fontSize: 16,
+        fontSize: 20,
         fontFamily: "Archivo_700Bold",
     }
 })

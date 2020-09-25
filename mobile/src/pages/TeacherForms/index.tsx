@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, Image, SafeAreaView } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
 
 // Componentes //
 import TopBarHeader from '../../components/TopBarHeader'
@@ -8,27 +9,33 @@ import PageHeader from '../../components/PageHeader'
 import Inputs from '../../components/Forms/Inputs'
 import TextAreas from '../../components/Forms/TextAreas'
 import FieldSets from '../../components/Forms/FieldSets'
+import Select from '../../components/Forms/Select'
 
 // Icones //
 import Icon from 'react-native-vector-icons/Feather'
+import defaultAvatar from './../../assets/images/user.png'
+
+// API e contexto //
+import api from '../../services/api'
+import AuthContext from '../../contexts/auth'
 
 // Estilo //
 import styles from './styles'
-import Select from '../../components/Forms/Select'
-import { sub } from 'react-native-reanimated'
 
 function TeacherForms() {
 
-    const [weekDay, setWeekDay] = useState(0)
-    const [subject, setSubject] = useState('')
+    const { user } = useContext(AuthContext)
+    const { navigate } = useNavigation()
+
     const [name, setName] = useState('')
     const [lastname, setLastname] = useState('')
     const [avatar, setAvatar] = useState('')
     const [whatsapp, setWhatsapp] = useState('')
     const [bio, setBio] = useState('')
     const [email, setEmail] = useState('')
-
     const [cost, setCost] = useState('')
+    const [subject, setSubject] = useState('')
+    const [weekDay, setWeekDay] = useState(0)
     const [scheduleItems, setScheduleItems] = useState([
         { week_day: 0, from: '', to: '' },
     ])
@@ -39,6 +46,77 @@ function TeacherForms() {
 
     const subjectsArray = ["Artes", "Educação Física", "Física", "História", "Matemática",
         "Português", "Química", "Sociologia"]
+
+    // Carregando os dados através da API //
+    useEffect(() => {
+
+        api.get('/perfil', {
+            params: user
+        })
+            .then(res => {
+                const data = res.data
+
+                setName(data.name)
+                setLastname(data.lastname)
+                setAvatar(data.avatar)
+                setWhatsapp(data.whatsapp)
+                setBio(data.bio)
+                setEmail(data.email)
+                setSubject(data.subjects[0].subject)
+
+            })
+            .catch(e => {
+                alert(e.response.data)
+            })
+    }, [])
+
+    function addNewScheduleItem() {
+        setScheduleItems([...scheduleItems, {
+            week_day: 0, from: '', to: ''
+        }])
+    }
+
+    function deleteScheduleItem(index: number) {
+        if (scheduleItems.length > 1) {
+            delete scheduleItems[index]
+
+            const filtered = scheduleItems.filter(item => {
+                return item !== undefined
+            })
+
+            setScheduleItems(filtered)
+        }
+    }
+
+    function setScheduleItemValue(position: number, field: string, value: string) {
+        const updateScheduleItems = scheduleItems.map((scheduleItem, index) => {
+            if (index === position) {
+                return { ...scheduleItem, [field]: value }
+            }
+
+            return scheduleItem
+        })
+
+        setScheduleItems(updateScheduleItems)
+    }
+
+    function handleSubmit() {
+
+        api.post('/classes', {
+            email, whatsapp, bio, subject, cost, schedule: scheduleItems
+        })
+            .then(() => {
+                navigate('SucessMessage', {
+                    title: 'Aula cadastrada!',
+                    description: "Tudo certo, sua aula ja foi cadastrada e você já está na nossa lista de professores. \n\n Agora, basta ficar ligado no seu Whatsapp.",
+                    buttonText: 'Home'
+                })
+            })
+            .catch((e) => {
+                alert(e.response.data)
+            })
+    }
+
 
     return (
         <View style={styles.container}>
@@ -55,10 +133,10 @@ function TeacherForms() {
 
                         <FieldSets label="Seus dados" />
                         <View style={styles.profile}>
-                            <Image source={{ uri: "https://avatars1.githubusercontent.com/u/56278484?s=460&v=4" }} style={styles.avatar} />
+                            <Image source={avatar ? { uri: avatar } : defaultAvatar} style={styles.avatar} />
                             <View>
-                                <Text style={styles.name}>Rogério Marques</Text>
-                                <Text style={styles.subject}>Artes</Text>
+                                <Text style={styles.name}>{`${name} ${lastname}`}</Text>
+                                <Text style={styles.subject}>{subject}</Text>
                             </View>
                         </View>
 
@@ -66,6 +144,7 @@ function TeacherForms() {
                             label='WhatsApp'
                             keyboardType='number-pad'
                             placeholder='(XX) X-XXXX-XXXX'
+                            value={whatsapp}
                             onChangeText={(e) => setWhatsapp(e)}
                         />
 
@@ -76,6 +155,7 @@ function TeacherForms() {
                             maxLength={200}
                             multiline={true}
                             placeholder='Conte-me mais sobre você...'
+                            value={bio}
                             onChangeText={(e) => setBio(e)}
                         />
                     </View>
@@ -101,11 +181,10 @@ function TeacherForms() {
                     <View style={styles.formGroup}>
 
                         <FieldSets label="Horários Disponíveis">
-                            <TouchableOpacity style={styles.buttonNewSchedule}>
+                            <TouchableOpacity style={styles.buttonNewSchedule} onPress={addNewScheduleItem}>
                                 <Text style={styles.buttonNewScheduleText}>+ Novo</Text>
                             </TouchableOpacity>
                         </FieldSets>
-
                         {
                             scheduleItems.map((item, index) => {
                                 return (
@@ -113,17 +192,27 @@ function TeacherForms() {
                                         <Select
                                             label="Dia da Semana"
                                             options={weekOfDayArray}
-                                            value={weekDay}
-                                            getValue={(e: any) => setWeekDay(e)}
+                                            value={item.week_day}
+                                            getValue={(text: any) => setScheduleItemValue(index, 'week_day', text)}
                                         />
 
                                         <View style={styles.timeInputs}>
-                                            <Inputs label='Das' placeholder='Horas' />
-                                            <Inputs label='Até' placeholder='Horas' />
+                                            <Inputs
+                                                label='Das'
+                                                placeholder='00h00'
+                                                value={item.from}
+                                                onChangeText={text => setScheduleItemValue(index, 'from', text)}
+                                            />
+                                            <Inputs
+                                                label='Até'
+                                                placeholder='00h00'
+                                                value={item.to}
+                                                onChangeText={text => setScheduleItemValue(index, 'to', text)}
+                                            />
                                         </View>
 
                                         <View style={styles.scheduleLine}>
-                                            <TouchableOpacity style={styles.buttonDeleteItem}>
+                                            <TouchableOpacity style={styles.buttonDeleteItem} onPress={() => deleteScheduleItem(index)}>
                                                 <Text style={styles.buttonDeleteItemText}>Excluir Horário</Text>
                                             </TouchableOpacity>
                                         </View>
@@ -134,7 +223,7 @@ function TeacherForms() {
                     </View>
 
                     <View style={styles.footer}>
-                        <TouchableOpacity style={styles.buttonSubmit}>
+                        <TouchableOpacity style={styles.buttonSubmit} onPress={handleSubmit}>
                             <Text style={styles.buttonSubmitText}>Salvar cadastro</Text>
                         </TouchableOpacity>
 
