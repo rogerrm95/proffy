@@ -15,6 +15,7 @@
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
+    "@types/yup": "^0.29.7",
     "axios": "^0.19.2",
     "expo": "^39.0.0",
     "expo-font": "~8.3.0",
@@ -28,7 +29,8 @@
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
     "react-native-textinput-effects": "^0.6.1",
-    "react-native-web": "~0.13.7"
+    "react-native-web": "~0.13.7",
+    "yup": "^0.29.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

@@ -15,9 +15,10 @@ import Select from '../../components/Forms/Select'
 import Icon from 'react-native-vector-icons/Feather'
 import defaultAvatar from './../../assets/images/user.png'
 
-// API e contexto //
+// API | contexto | schema //
 import api from '../../services/api'
 import AuthContext from '../../contexts/auth'
+import Schema from './schema'
 
 // Estilo //
 import styles from './styles'
@@ -26,6 +27,9 @@ function TeacherForms() {
 
     const { user } = useContext(AuthContext)
     const { navigate } = useNavigation()
+
+    const [showMessage, setShowMessage] = useState(false)
+    const [message, setMessage] = useState('')
 
     const [name, setName] = useState('')
     const [lastname, setLastname] = useState('')
@@ -102,21 +106,36 @@ function TeacherForms() {
 
     function handleSubmit() {
 
-        api.post('/classes', {
-            email, whatsapp, bio, subject, cost, schedule: scheduleItems
-        })
-            .then(() => {
-                navigate('SucessMessage', {
-                    title: 'Aula cadastrada!',
-                    description: "Tudo certo, sua aula ja foi cadastrada e você já está na nossa lista de professores. \n\n Agora, basta ficar ligado no seu Whatsapp.",
-                    buttonText: 'Home'
-                })
-            })
-            .catch((e) => {
-                alert(e.response.data)
-            })
-    }
+        // Validação //
+        // Irá comparar os dados do formulário com o schema definido no arquivo schema.js //
+        Schema.validate({
+            whatsapp, bio, subject, cost, schedule: scheduleItems
+        }).then(() => {
 
+            api.post('/classes', {
+                email, whatsapp, bio, subject, cost, schedule: scheduleItems
+            })
+                .then(() => {
+                    navigate('SucessMessage', {
+                        title: 'Aula cadastrada!',
+                        description: "Tudo certo, sua aula ja foi cadastrada e você já está na nossa lista de professores. \n\n Agora, basta ficar ligado no seu Whatsapp.",
+                        buttonText: 'Home'
+                    })
+                })
+                .catch((e) => {
+                    alert(e)
+                })
+        }).catch(e => {
+            
+            // Exibirá um aviso caso a validação falhe //
+            setShowMessage(true)
+            setMessage(e.errors)
+
+            setTimeout(() => {
+                setShowMessage(false)
+            }, 4500)
+        })
+    }
 
     return (
         <View style={styles.container}>
@@ -241,6 +260,13 @@ function TeacherForms() {
                     </View>
                 </ScrollView>
             </View>
+
+            {showMessage ?
+                    <View style={styles.errorMessageBox}>
+                        <Icon name='alert-triangle' size={40} color={'#FFF'}/>
+                        <Text style={styles.errorMessage}> {message} </Text>
+                    </View>
+                : null}
         </View>
     )
 }

@@ -43,7 +43,6 @@ const SuccessMessage: React.FC = () => {
                 <Icon name='home' size={30} color="#FFF" style={styles.iconHome}/>
                 <Text style={styles.okText}>{params.buttonText}</Text>
             </RectButton>
-
         </View>
     )
 }
