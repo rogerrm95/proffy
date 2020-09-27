@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     filter:{
         borderBottomWidth: 1,
         borderColor: "#9871F5",
-        marginVertical: 30,
+        marginVertical: 15,
     },
 
     filterButton:{
@@ -27,26 +27,11 @@ const styles = StyleSheet.create({
     },
 
     teacherList: {
-        marginTop: -40,
+        marginTop: -20,
     },
 
     searchForm: {
-        marginBottom: 8
-    },
-
-    label: {
-        fontFamily: 'Poppins_400Regular',
-        color: '#d4c2ff'
-    },
-
-    input: {
-        height: 54,
-        backgroundColor: '#FFF',
-        borderRadius: 8,
-        justifyContent: 'center',
-        paddingHorizontal: 16,
-        marginTop: 4,
-        marginBottom: 16
+        marginBottom: 15
     },
 
     inputGroup: {
@@ -55,22 +40,25 @@ const styles = StyleSheet.create({
     },
 
     inputBlock: {
-        width: "48%"
+        width: "50%"
     },
 
     submitButton: {
         backgroundColor: '#04d361',
+        height: 52,
+        marginVertical: 12,
         flexDirection: "row",
-        height: 56,
-        borderRadius: 8,
         alignItems: "center",
         justifyContent: 'center',
+        borderRadius: 8,
     },
 
     submitButtonText: {
+        marginLeft: 10,
         color: '#FFF',
         fontFamily: "Archivo_700Bold",
-        fontSize: 16
+        fontSize: 20,
+        letterSpacing: 2
     }
 })
 

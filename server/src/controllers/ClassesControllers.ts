@@ -70,8 +70,6 @@ export default class ClassesControllers {
             }
         })
 
-        console.log(data)
-
         return res.json(data)
     }
 

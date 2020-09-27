@@ -4,11 +4,13 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#8257e5',
         justifyContent: "space-between",
+        minHeight: 250
     },
     
     header: {
         flexDirection: "column",
         paddingHorizontal: 25,
+        paddingBottom: 25,
     },
     
     title: {
@@ -16,8 +18,8 @@ const styles = StyleSheet.create({
         color: "#FFF",
         fontSize: 22,
         lineHeight: 28,
-        maxWidth: 280,
-        marginTop: 20,
+        maxWidth: 250,
+        marginTop: 10,
     },
 
     description: {
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
         color: "#D4C2FF",
         lineHeight: 22,
         maxWidth: 300,
-        marginBottom: 75,
+        marginBottom: 50,
     },
 
     children:{

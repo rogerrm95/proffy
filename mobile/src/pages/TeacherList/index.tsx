@@ -6,9 +6,11 @@ import AsyncStorage from '@react-native-community/async-storage'
 // Components //
 import PageHeader from '../../components/PageHeader';
 import TeacherItem, { Teacher } from '../../components/TeacherItem';
+import Inputs from '../../components/Forms/Inputs';
+import Select from '../../components/Forms/Select';
 
 // Icons //
-import { Feather } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons/'
 
 // Styles //
 import styles from './styles';
@@ -16,13 +18,15 @@ import styles from './styles';
 // API //
 import api from '../../services/api';
 
+// Utilidades //
+import { subjectsList, weekDayList } from './../../utils/subjectsList'
 
 function TeacherList() {
 
-    // ESTADOS //
     const [isFilterVisible, setIsFiltersVisible] = useState(false)
-    const [subject, setSubject] = useState('')
-    const [week_day, setWeekDay] = useState('')
+    const [subject, setSubject] = useState('Artes')
+    const [week_day, setWeekDay] = useState('Domingo')
+    const [week_dayIndex, setWeekDayIndex] = useState(0)
     const [time, setTime] = useState('')
     const [teachers, setTeachers] = useState([])
     const [favorites, setFavorites] = useState<number[]>([])
@@ -43,16 +47,20 @@ function TeacherList() {
     async function handleFiltersSubmit() {
         loadFavorites()
 
-        const response = await api.get('classes', {
-            params: {
-                subject,
-                week_day,
-                time
-            }
-        })
+        try {
+            const response = await api.get('classes', {
+                params: {
+                    subject,
+                    week_day: week_dayIndex,
+                    time
+                }
+            })
 
-        setTeachers(response.data)
-        setIsFiltersVisible(false)
+            setTeachers(response.data)
+            setIsFiltersVisible(false)
+        } catch (e) {
+            alert(e.response.data)
+        }
     }
 
     function handleToggleFiltersVisible() {
@@ -78,42 +86,46 @@ function TeacherList() {
                 {isFilterVisible && (
 
                     <View style={styles.searchForm}>
-                        <Text style={styles.label}>Matéria</Text>
-                        <TextInput
-                            style={styles.input}
-                            value={subject}
-                            onChangeText={text => setSubject(text)}
-                            placeholder="Qual a matéria?"
-                            placeholderTextColor="#c1bccc"
+
+                        <Select
+                            label="Matéria"
+                            options={subjectsList}
+                            labelStyle={{ colorText: '#D4C2FF', fontSize: 16 }}
+                            selectStyle={{ backgroundColor: '#fff' }}
+                            selectedValue={subject}
+                            onValueChange={((text: any, index) => setSubject(text))}
                         />
 
                         <View style={styles.inputGroup}>
 
                             <View style={styles.inputBlock}>
-                                <Text style={styles.label}>Dia da Semana</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    value={week_day}
-                                    onChangeText={text => setWeekDay(text)}
-                                    placeholder="Qual o dia?"
-                                    placeholderTextColor="#c1bccc"
+                                <Select
+                                    label="Dia da Semana"
+                                    options={weekDayList}
+                                    labelStyle={{ colorText: '#D4C2FF', fontSize: 16 }}
+                                    selectStyle={{ backgroundColor: '#fff', height: 52 }}
+                                    selectedValue={week_day}
+                                    onValueChange={((text, index) => {
+                                        setWeekDay(text)
+                                        setWeekDayIndex(index)
+                                    })}
                                 />
                             </View>
 
                             <View style={styles.inputBlock}>
-                                <Text style={styles.label}>Horário</Text>
-                                <TextInput
-                                    style={styles.input}
+                                <Inputs
+                                    label="Horário"
+                                    placeholder="00:00*"
+                                    labelStyle={{ colorText: '#D4C2FF', fontSize: 16 }}
+                                    inputStyle={{ backgroundColor: '#FFF', height: 52 }}
                                     value={time}
-                                    onChangeText={text => setTime(text)}
-                                    placeholder="Qual horário?"
-                                    placeholderTextColor="#c1bccc"
-                                />
+                                    onChangeText={(text) => setTime(text)} />
                             </View>
 
                         </View>
 
                         <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
+                            <Feather name='search' size={20} color='#FFF' />
                             <Text style={styles.submitButtonText}>Filtrar</Text>
                         </RectButton>
                     </View>

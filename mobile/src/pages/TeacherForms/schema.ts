@@ -6,7 +6,7 @@ Yup.setLocale({
     mixed: {
         default: 'Entrada inválida',
         required: 'Há campos vazios, por favor revise o formulario!',
-        notType: 'Há campos inválidos, por favor revise o formulario'
+        notType: 'Há campos inválido, por favor revise o formulario'
     },
     string:{
         min: 'Informe um telefone válido (XX) 9999-9999',
