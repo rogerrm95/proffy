@@ -8,15 +8,17 @@ import PageHeader from '../../components/PageHeader';
 import TeacherItem, { Teacher } from '../../components/TeacherItem';
 import Inputs from '../../components/Forms/Inputs';
 import Select from '../../components/Forms/Select';
+import ErrorMessage from '../../components/ErrorMessage';
 
 // Icons //
-import { Feather } from '@expo/vector-icons/'
+import Icon from 'react-native-vector-icons/Feather'
 
 // Styles //
 import styles from './styles';
 
-// API //
+// API e Schema(Validações)//
 import api from '../../services/api';
+import Schema from './schema';
 
 // Utilidades //
 import { subjectsList, weekDayList } from './../../utils/subjectsList'
@@ -24,6 +26,9 @@ import { subjectsList, weekDayList } from './../../utils/subjectsList'
 function TeacherList() {
 
     const [isFilterVisible, setIsFiltersVisible] = useState(false)
+    const [message, setMessage] = useState('')
+    const [showMessage, setShowMessage] = useState(false)
+
     const [subject, setSubject] = useState('Artes')
     const [week_day, setWeekDay] = useState('Domingo')
     const [week_dayIndex, setWeekDayIndex] = useState(0)
@@ -44,25 +49,42 @@ function TeacherList() {
         })
     }
 
+
+    // Filtrar - Validação //
+    // Irá comparar os dados do formulário com o schema definido no arquivo schema.js //
     async function handleFiltersSubmit() {
         loadFavorites()
 
         try {
-            const response = await api.get('classes', {
-                params: {
-                    subject,
-                    week_day: week_dayIndex,
-                    time
-                }
-            })
+            Schema.validate({ time })
+                .then(async _ => {
+                    const response = await api.get('classes', {
+                        params: {
+                            subject,
+                            week_day: week_dayIndex,
+                            time
+                        }
+                    })
 
-            setTeachers(response.data)
-            setIsFiltersVisible(false)
+                    setTeachers(response.data)
+                    setIsFiltersVisible(false)
+                })
+                .catch(e => {
+
+                    // Exibirá um aviso caso a validação falhe //
+                    setShowMessage(true)
+                    setMessage(e.errors)
+
+                    setTimeout(() => {
+                        setShowMessage(false)
+                    }, 4500)
+                })
         } catch (e) {
-            alert(e.response.data)
+            alert(e)
         }
     }
-
+    
+    // Esconde ou exibe o formulario de filtrar //
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFilterVisible)
     }
@@ -76,14 +98,15 @@ function TeacherList() {
                 headerButton={
                     <View style={styles.filter}>
                         <BorderlessButton onPress={handleToggleFiltersVisible} style={styles.filterButton}>
-                            <Feather name='filter' size={20} color='#04D361' />
+                            <Icon name='filter' size={20} color='#04D361' />
                             <Text style={styles.filterText}>Filtrar por dia, hora e matéria</Text>
-                            <Feather name='chevron-down' size={20} color='#A380F6' />
+                            <Icon name='chevron-down' size={20} color='#A380F6' />
                         </BorderlessButton>
                     </View>
                 }>
 
-                {isFilterVisible && (
+                {
+                isFilterVisible && (
 
                     <View style={styles.searchForm}>
 
@@ -125,7 +148,7 @@ function TeacherList() {
                         </View>
 
                         <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
-                            <Feather name='search' size={20} color='#FFF' />
+                            <Icon name='search' size={20} color='#FFF' />
                             <Text style={styles.submitButtonText}>Filtrar</Text>
                         </RectButton>
                     </View>
@@ -148,8 +171,12 @@ function TeacherList() {
                             favorited={favorites.includes(teacher.id)}
                         />)
                 })}
-
             </ScrollView>
+
+
+            {
+                showMessage ? <ErrorMessage text={message} /> : null
+            }
 
         </View>
     )

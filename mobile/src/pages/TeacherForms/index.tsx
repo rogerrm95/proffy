@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 // Componentes //
 import TopBarHeader from '../../components/TopBarHeader'
 import PageHeader from '../../components/PageHeader'
+import ErrorMessage from '../../components/ErrorMessage'
 import Inputs from '../../components/Forms/Inputs'
 import TextAreas from '../../components/Forms/TextAreas'
 import FieldSets from '../../components/Forms/FieldSets'
@@ -126,7 +127,7 @@ function TeacherForms() {
                     alert(e)
                 })
         }).catch(e => {
-            
+
             // Exibirá um aviso caso a validação falhe //
             setShowMessage(true)
             setMessage(e.errors)
@@ -185,8 +186,8 @@ function TeacherForms() {
                         <Select
                             label='Matéria'
                             options={subjectsArray}
-                            value={subject}
-                            getLabel={((e: string) => setSubject(e))}
+                            selectedValue={subject}
+                            onValueChange={((e: string) => setSubject(e))}
                         />
 
                         <Inputs
@@ -211,8 +212,8 @@ function TeacherForms() {
                                         <Select
                                             label="Dia da Semana"
                                             options={weekOfDayArray}
-                                            value={item.week_day}
-                                            getValue={(text: any) => setScheduleItemValue(index, 'week_day', text)}
+                                            selectedValue={item.week_day}
+                                            onValueChange={(text: any) => setScheduleItemValue(index, 'week_day', text)}
                                         />
 
                                         <View style={styles.timeInputs}>
@@ -261,12 +262,9 @@ function TeacherForms() {
                 </ScrollView>
             </View>
 
-            {showMessage ?
-                    <View style={styles.errorMessageBox}>
-                        <Icon name='alert-triangle' size={40} color={'#FFF'}/>
-                        <Text style={styles.errorMessage}> {message} </Text>
-                    </View>
-                : null}
+            {
+                showMessage ? <ErrorMessage text={message} /> : null
+            }
         </View>
     )
 }
