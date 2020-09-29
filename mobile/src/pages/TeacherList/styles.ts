@@ -26,10 +26,6 @@ const styles = StyleSheet.create({
         marginRight: 115
     },
 
-    teacherList: {
-        marginTop: -20,
-    },
-
     searchForm: {
         marginBottom: 15
     },
@@ -59,7 +55,37 @@ const styles = StyleSheet.create({
         fontFamily: "Archivo_700Bold",
         fontSize: 20,
         letterSpacing: 2
-    }
+    },
+
+    teacherList: {
+        marginTop: -20,
+    },
+
+    withoutResults: {
+        justifyContent: "center",
+        alignItems: "center",
+        height: 500,
+    },
+
+    withoutResultsMessage:{
+        color: "#C1BCCC",
+        fontSize: 18,
+        fontFamily: 'Archivo_700Bold',
+        marginTop: 10
+    },
+
+    withResults:{
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: 'row',
+        padding: 10,
+        borderRadius: 8
+    },
+
+    withResultsMessage:{
+        color: "#6A6180",
+        marginLeft: 15
+    },
 })
 
 export default styles;

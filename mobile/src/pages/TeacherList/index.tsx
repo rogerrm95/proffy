@@ -172,6 +172,23 @@ function TeacherList() {
                         />)
                 })}
 
+                {
+                    teachers.length !== 0 ?
+                        <View style={styles.withResults}>
+                            <Icon name='alert-triangle' size={30} color='#6A6180'/>
+                            <Text style={styles.withResultsMessage}>
+                                Estes são todos os resultados
+                            </Text>
+                        </View>
+                        :
+                        <View style={styles.withoutResults}>
+                            <Icon name='users' size={75} color='#C1BCCC' />
+                            <Text style={styles.withoutResultsMessage}>
+                                Sem resultados
+                            </Text>
+                        </View>
+                }
+
             </ScrollView>
 
             {
