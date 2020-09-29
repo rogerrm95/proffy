@@ -83,7 +83,7 @@ function TeacherList() {
             alert(e)
         }
     }
-    
+
     // Esconde ou exibe o formulario de filtrar //
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFilterVisible)
@@ -106,53 +106,53 @@ function TeacherList() {
                 }>
 
                 {
-                isFilterVisible && (
+                    isFilterVisible && (
 
-                    <View style={styles.searchForm}>
+                        <View style={styles.searchForm}>
 
-                        <Select
-                            label="Matéria"
-                            options={subjectsList}
-                            labelStyle={{ colorText: '#D4C2FF', fontSize: 16 }}
-                            selectStyle={{ backgroundColor: '#fff' }}
-                            selectedValue={subject}
-                            onValueChange={((text: any, index) => setSubject(text))}
-                        />
+                            <Select
+                                label="Matéria"
+                                options={subjectsList}
+                                labelStyle={{ colorText: '#D4C2FF', fontSize: 16 }}
+                                selectStyle={{ backgroundColor: '#fff' }}
+                                selectedValue={subject}
+                                onValueChange={((text: any, index) => setSubject(text))}
+                            />
 
-                        <View style={styles.inputGroup}>
+                            <View style={styles.inputGroup}>
 
-                            <View style={styles.inputBlock}>
-                                <Select
-                                    label="Dia da Semana"
-                                    options={weekDayList}
-                                    labelStyle={{ colorText: '#D4C2FF', fontSize: 16 }}
-                                    selectStyle={{ backgroundColor: '#fff', height: 52 }}
-                                    selectedValue={week_day}
-                                    onValueChange={((text, index) => {
-                                        setWeekDay(text)
-                                        setWeekDayIndex(index)
-                                    })}
-                                />
+                                <View style={styles.inputBlock}>
+                                    <Select
+                                        label="Dia da Semana"
+                                        options={weekDayList}
+                                        labelStyle={{ colorText: '#D4C2FF', fontSize: 16 }}
+                                        selectStyle={{ backgroundColor: '#fff', height: 52 }}
+                                        selectedValue={week_day}
+                                        onValueChange={((text, index) => {
+                                            setWeekDay(text)
+                                            setWeekDayIndex(index)
+                                        })}
+                                    />
+                                </View>
+
+                                <View style={styles.inputBlock}>
+                                    <Inputs
+                                        label="Horário"
+                                        placeholder="00:00*"
+                                        labelStyle={{ colorText: '#D4C2FF', fontSize: 16 }}
+                                        inputStyle={{ backgroundColor: '#FFF', height: 52 }}
+                                        value={time}
+                                        onChangeText={(text) => setTime(text)} />
+                                </View>
+
                             </View>
 
-                            <View style={styles.inputBlock}>
-                                <Inputs
-                                    label="Horário"
-                                    placeholder="00:00*"
-                                    labelStyle={{ colorText: '#D4C2FF', fontSize: 16 }}
-                                    inputStyle={{ backgroundColor: '#FFF', height: 52 }}
-                                    value={time}
-                                    onChangeText={(text) => setTime(text)} />
-                            </View>
-
+                            <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
+                                <Icon name='search' size={20} color='#FFF' />
+                                <Text style={styles.submitButtonText}>Filtrar</Text>
+                            </RectButton>
                         </View>
-
-                        <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
-                            <Icon name='search' size={20} color='#FFF' />
-                            <Text style={styles.submitButtonText}>Filtrar</Text>
-                        </RectButton>
-                    </View>
-                )}
+                    )}
             </PageHeader>
 
             <ScrollView
@@ -171,8 +171,8 @@ function TeacherList() {
                             favorited={favorites.includes(teacher.id)}
                         />)
                 })}
-            </ScrollView>
 
+            </ScrollView>
 
             {
                 showMessage ? <ErrorMessage text={message} /> : null

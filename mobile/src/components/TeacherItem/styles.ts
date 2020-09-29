@@ -42,18 +42,43 @@ const styles = StyleSheet.create({
     },
 
     bio: {
-        marginHorizontal: 24,
+        marginHorizontal: 0,
         fontSize: 14,
         fontFamily: "Poppins_400Regular",
         lineHeight: 24,
         color: "#6a6180",
+        paddingBottom: 20,
+        paddingHorizontal: 20,
+        marginBottom: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: "#E6E6F0"
+    },
+
+    dayAndTime: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingHorizontal: 45,
+        marginBottom: 5
+    },
+
+    dayAndTimeText:{
+        color: '#9C98A6',
+        fontSize: 12,
+        fontFamily: 'Poppins_400Regular' 
+    },
+
+    scrollweekDay:{
+        height: 155,
+        marginHorizontal: 25,
     },
 
     footer: {
         backgroundColor: "#fafafc",
         alignItems: "center",
         padding: 24,
-        marginTop: 24
+        marginTop: 24,
+        borderTopWidth: 1,
+        borderTopColor: '#E6E6F0'
     },
 
     cost: {

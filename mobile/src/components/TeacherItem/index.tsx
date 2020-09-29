@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { View, Text, Image, Linking } from 'react-native'
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage'
 
 // Icons and Images //
 import heartIcon from './../../assets/images/icons/heart.png'
 import unfavoriteIcon from './../../assets/images/icons/unfavorite.png'
 import whatsappIcon from './../../assets/images/icons/whatsapp.png'
+import avatarDefault from './../../assets/images/user.png'
 
 // Styles //
 import styles from './styles';
@@ -14,14 +15,18 @@ import styles from './styles';
 // API //
 import api from '../../services/api';
 
+// Componente //
+import DayOfWeekItem, { DayOfWeekItemProps } from './../DayOfWeekItem';
+
 export interface Teacher {
+    id: number,
     name: string,
     bio: string,
     avatar: string,
     whatsapp: string,
     subject: string,
     cost: number,
-    id: number
+    times: Array<object>
 }
 
 interface TeacherItemProps {
@@ -32,6 +37,11 @@ interface TeacherItemProps {
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
 
     const [isFavorited, setIsFavorited] = useState(favorited)
+    const weekDay = [
+        "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"
+    ]
+
+    const times = teacher.times as Array<any>
 
     function handleLinkToWhatsapp() {
 
@@ -75,7 +85,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
         <View style={styles.container}>
             <View style={styles.profile}>
                 <Image
-                    source={{ uri: `${teacher.avatar}` }}
+                    source={teacher.avatar ? { uri: `${teacher.avatar}` } : avatarDefault}
                     style={styles.avatar}
                 />
 
@@ -87,10 +97,40 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
 
             <Text style={styles.bio}>{teacher.bio}</Text>
 
+            <View style={styles.dayAndTime}>
+                    <Text style={styles.dayAndTimeText}>Dia</Text>
+                    <Text style={styles.dayAndTimeText}>Horário</Text>
+            </View>
+
+            <ScrollView style={styles.scrollweekDay}>
+
+                {
+                    weekDay.map((week: string, index) => {
+
+                        let item;
+                        const arrayOfTime = [] as Array<any>
+
+                        times.map((time: DayOfWeekItemProps) => {
+
+                            if (time.week_day === index) {
+                                const item = `${time.from}h - ${time.to}h`
+
+                                arrayOfTime.push(item)
+                            }
+
+                            return item = <DayOfWeekItem keys={index} times={arrayOfTime} week={week} key={index} />
+                        })
+                        
+                        return item 
+                    })
+                }
+            </ScrollView>
+
+
             <View style={styles.footer}>
                 <Text style={styles.cost}>
-                    Preço/Hora: {'  '}
-                    <Text style={styles.costValue}>{teacher.cost}</Text>
+                    Preço por hora: {'      '}
+                    <Text style={styles.costValue}>{`R$ ${teacher.cost} reais`}</Text>
                 </Text>
 
                 <View style={styles.containerButtons}>
@@ -101,7 +141,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
                         ]}
                         onPress={handleToggleFavorite}>
 
-                        { isFavorited ?
+                        {isFavorited ?
                             <Image source={unfavoriteIcon} /> :
                             <Image source={heartIcon} />
                         }
