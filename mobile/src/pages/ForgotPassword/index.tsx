@@ -36,7 +36,8 @@ const ForgotPassword: React.FC = () => {
         } else {
             navigate('SuccessMessage', {
                 title: 'Redefinição enviada!',
-                description: 'Boa, agora é só checar o e-mail que foi enviado para você redefinir sua senha e aproveitar os estudos'
+                description: 'Boa, agora é só checar o e-mail que foi enviado para você redefinir sua senha e aproveitar os estudos',
+                buttonText: 'Login'
             })
         }
     }

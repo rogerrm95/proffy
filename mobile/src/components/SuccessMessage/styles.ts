@@ -4,31 +4,31 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#8257E5',
-        justifyContent: 'center',
         padding: 40
     },
 
     content: {
         flex: 1,
         justifyContent: "center",
+        alignItems: "center"
     },
 
     title: {
         color: '#FFF',
         fontFamily: 'Archivo_700Bold',
-        fontSize: 34,
+        fontSize: 36,
         lineHeight: 40,
-        maxWidth: 250
+        textAlign: "center",
     },
 
     description: {
-        marginTop: 24,
+        marginTop: 40,
+        paddingHorizontal: 15,
         color: "#d4c2ff",
-        fontSize: 18,
-        lineHeight: 28,
+        fontSize: 16,
+        lineHeight: 26,
         fontFamily: 'Poppins_400Regular',
-        textAlign: "justify",
-        maxWidth: 250,
+        textAlign: "center",
     },
 
     okButton: {

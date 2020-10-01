@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 // Icons and Images //
 import Icon from 'react-native-vector-icons/Feather'
-import giveClassesBackground from '../../assets/images/give-classes-background.png'
+import backgroundSuccess from './../../assets/images/backgroundSuccess.png'
 
 // Contexto //
 import AuthContext from '../../contexts/auth';
@@ -27,21 +27,26 @@ const SuccessMessage: React.FC = () => {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={giveClassesBackground}
+                source={backgroundSuccess}
                 style={styles.content}
-                resizeMode='contain'
-            >
+                resizeMode='contain'>
+
                 <Text style={styles.title}>
                     {params.title}
                 </Text>
+
                 <Text style={styles.description}>
                     {params.description}
                 </Text>
             </ImageBackground>
 
             <RectButton style={styles.okButton} onPress={handleToHome}>
-                <Icon name='home' size={30} color="#FFF" style={styles.iconHome}/>
-                <Text style={styles.okText}>{params.buttonText}</Text>
+
+                <Icon name='home' size={30} color="#FFF" style={styles.iconHome} />
+                <Text style={styles.okText}>
+                    {params.buttonText}
+                </Text>
+
             </RectButton>
         </View>
     )

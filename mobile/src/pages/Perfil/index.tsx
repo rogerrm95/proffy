@@ -143,7 +143,13 @@ function Perfil() {
 
                 await SecureStore.setItemAsync('proffyUser', JSON.stringify(newStorage))
 
-                navigate('Landing')
+                navigate('SucessMessage', {
+                    title: 'Cadastro Atualizado',
+                    description: `Tudo certo, seu cadastro está na nossa lista de professores.
+                    \nAgora é só ficar de olho no seu WhatsApp.`,
+                    buttonText: 'Home'
+                })
+
             })
             .catch(error => {
                 alert(error.response.data)

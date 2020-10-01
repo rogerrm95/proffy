@@ -37,7 +37,8 @@ const SignUp: React.FC = () => {
             .then(function () {
                 navigate('SuccessMessage', {
                     title: 'Cadastro Concluído!',
-                    description: 'Agora você faz parte da plataforma da Proffy'
+                    description: 'Agora você faz parte da plataforma da Proffy',
+                    buttonText: 'Login'
                 })
             })
             .catch(error => alert((error.response.data)))
