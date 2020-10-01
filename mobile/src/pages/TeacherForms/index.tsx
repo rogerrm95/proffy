@@ -39,7 +39,7 @@ function TeacherForms() {
     const [bio, setBio] = useState('')
     const [email, setEmail] = useState('')
     const [cost, setCost] = useState('')
-    const [subject, setSubject] = useState('')
+    const [subject, setSubject] = useState('Artes')
     const [weekDay, setWeekDay] = useState(0)
     const [scheduleItems, setScheduleItems] = useState([
         { week_day: 0, from: '', to: '' },
@@ -67,8 +67,6 @@ function TeacherForms() {
                 setWhatsapp(data.whatsapp)
                 setBio(data.bio)
                 setEmail(data.email)
-                setSubject(data.subjects[0].subject)
-
             })
             .catch(e => {
                 alert(e.response.data)

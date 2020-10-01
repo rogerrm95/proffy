@@ -14,8 +14,6 @@ export default class SingInController {
         try {
             const { email, password } = req.body
 
-            console.log(email)
-
             const user = await db('users')
                 .where({ email: email })
                 .first()

@@ -144,7 +144,7 @@ export default class PerfilControllers {
 
             trx.commit()
 
-            return res.status(201).send()
+            return res.status(201).send(hasMoreRegister)
 
         } catch (e) {
 

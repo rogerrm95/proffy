@@ -63,8 +63,12 @@ function Landing() {
         navigate('Give-Classes')
     }
 
-    function handleNavigateToStudyPages() {
+    function handleNavigateToStudyPage() {
         navigate('Study')
+    }
+
+    function handleNavigateToPerfilPage() {
+        navigate('Perfil')
     }
 
     async function handleToLogout() {
@@ -82,7 +86,7 @@ function Landing() {
                     <TouchableHighlight
                         underlayColor="#774DD6"
                         activeOpacity={0.8}
-                        onPress={() => alert('Pressed!')}
+                        onPress={handleNavigateToPerfilPage}
                         style={styles.buttonPerfil}>
 
                         <View style={styles.userPerfil}>
@@ -111,7 +115,7 @@ function Landing() {
                 <View style={styles.buttonsContainers}>
                     <RectButton
                         style={[styles.button, styles.buttonPrimary]}
-                        onPress={handleNavigateToStudyPages}
+                        onPress={handleNavigateToStudyPage}
                     >
                         <Image source={studyIcon} />
                         <Text style={styles.buttonText}>Estudar</Text>

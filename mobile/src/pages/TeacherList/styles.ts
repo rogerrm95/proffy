@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     filter:{
         borderBottomWidth: 1,
         borderColor: "#9871F5",
-        marginVertical: 15,
+        marginVertical: 5,
     },
 
     filterButton:{
