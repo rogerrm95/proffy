@@ -63,12 +63,13 @@ const Select: React.FC<SelectProps> = ({
                     mode='dialog'
                     prompt='Selecione uma opção'
                     style={{ color: '#6A6180' }}
-                    {...rest}
-                >
-
-                    {options.map((item: string, index) => {
-                        return <Picker.Item value={item} label={item} key={index}/>
-                    })}
+                    {...rest}>
+                    
+                    {
+                        options.map((item: string, index: number) => {
+                            return <Picker.Item value={item} label={item} key={index} />
+                        })
+                    }
 
                 </Picker>
             </View>

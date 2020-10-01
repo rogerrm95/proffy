@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
 
     label: {
         color: '#9C98A6',
-        fontFamily: 'Archivo_400Regular',
+        fontFamily: 'Poppins_400Regular',
         fontSize: 12,
     },
 

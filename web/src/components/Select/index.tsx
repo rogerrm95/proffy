@@ -20,12 +20,14 @@ const Select: React.FC<SelectsProps> = ({ label, name, options, ...rest }) => {
             <select value='' id={name} {...rest}>
                 <option value='' disabled>Selecione uma opção</option>
 
-                {options.map((option, index) => {
-                    return <option
-                        value={option.value}
-                        key={index}
-                        label={option.label} />
-                })}
+                {
+                    options.map((option, index) => {
+                        return <option
+                            value={option.value}
+                            key={index}
+                            label={option.label} />
+                    })
+                }
             </select>
 
         </div>

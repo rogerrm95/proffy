@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
 
     label: {
         color: '#9C98A6',
-        fontFamily: 'Archivo_400Regular',
+        fontFamily: 'Poppins_400Regular',
         fontSize: 12,
     },
 
@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginTop: 10,
         height: 40,
-        padding: 10,
+        padding: 15,
+        textAlignVertical: 'top'
     },
 })
 

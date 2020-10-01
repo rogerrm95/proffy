@@ -13,8 +13,8 @@ import TopBarHeader from '../TopBarHeader';
 import styles from './styles';
 
 interface PageHeaderProps {
-    title: string,
-    labelTop: string
+    labelTop: string,
+    title?: string,
     description?: string,
     headerButton?: ReactNode
 }
@@ -33,9 +33,11 @@ const PageHeader: React.FC<PageHeaderProps> = ({ labelTop, title, description, h
             <TopBarHeader title={labelTop} />
 
             <View style={styles.header}>
-                <Text style={styles.title}>
-                    {title}
-                </Text>
+                {title ?
+                    <Text style={styles.title}>
+                        {title}
+                    </Text>
+                    : null}
 
                 {description ?
                     <Text style={styles.description}>
