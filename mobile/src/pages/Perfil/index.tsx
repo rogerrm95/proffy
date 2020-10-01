@@ -12,8 +12,8 @@ import Select from '../../components/Forms/Select';
 import TextAreas from '../../components/Forms/TextAreas';
 
 // Icones e Imagens //
-import avatarDefault from './../../assets/images/user.png'
 import Icon from 'react-native-vector-icons/Feather'
+import avatarDefault from './../../assets/images/user.png'
 import topBackground from './../../assets/images/backgroundPerfil.png'
 
 // Utils //
@@ -27,6 +27,7 @@ import api from '../../services/api';
 import styles from './styles'
 import style from '../../components/ErrorMessage/styles';
 import { useNavigation } from '@react-navigation/native';
+import SelectPicture from '../../components/SelectPhoto';
 
 interface OptionProps {
     subject: string,
@@ -50,7 +51,7 @@ function Perfil() {
     const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState('')
     const [oldEmail, setOldEmail] = useState('')
-    const [isPopupVisible, setIsPopupVisible] = useState(false)
+    const [showPopup, setShowPopup] = useState(false)
 
     // Usuário //
     const [avatar, setAvatar] = useState('')
@@ -160,8 +161,17 @@ function Perfil() {
         <View style={styles.container}>
             <PageHeader labelTop='Perfil'>
                 <ImageBackground style={styles.photoBox} source={topBackground} resizeMode='contain'>
-                    <Image source={avatarDefault} style={styles.photo} />
+
+                    <TouchableOpacity onPress={() => {setShowPopup(true)}}>
+                        <Image source={avatarDefault} style={styles.photo} />
+
+                        <View style={styles.buttonCamera}>
+                            <Icon name='camera' size={25} color={"#FFF"} />
+                        </View>
+                    </TouchableOpacity>
+
                     <Text style={styles.name}>Rogério Marques</Text>
+
                 </ImageBackground>
             </PageHeader>
 
@@ -295,6 +305,10 @@ function Perfil() {
             </View >
             {
                 showMessage ? <ErrorMessage text={message} /> : null
+            }
+
+            {
+                showPopup ? <SelectPicture avatar={avatar}/> : null
             }
 
         </View >

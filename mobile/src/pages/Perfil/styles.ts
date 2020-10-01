@@ -12,13 +12,30 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 25,
         marginBottom: 25
-
     },
 
     photo: {
         width: 115,
         height: 115,
-        marginBottom: 10
+        marginBottom: 10,
+        borderColor: '#FFF',
+        borderWidth: 2,
+        borderRadius: 55
+    },
+
+    buttonCamera: {
+        backgroundColor: '#04D361',
+        position: "relative",
+        justifyContent: "center",
+        alignItems: "center",
+        top: -40,
+        right: -75,
+        marginBottom: -20,
+        width: 40,
+        padding: 5,
+        borderWidth: 2,
+        borderColor: '#FFF',
+        borderRadius: 16,
     },
 
     name: {
