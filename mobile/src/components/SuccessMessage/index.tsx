@@ -31,6 +31,10 @@ const SuccessMessage: React.FC = () => {
                 style={styles.content}
                 resizeMode='contain'>
 
+                <View style={styles.iconBox}>
+                    <Icon name='check' size={75} color="#24EF7F"/>
+                </View>
+
                 <Text style={styles.title}>
                     {params.title}
                 </Text>

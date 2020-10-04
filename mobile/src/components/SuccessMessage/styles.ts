@@ -13,6 +13,13 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
 
+    iconBox:{
+        borderWidth: 4,
+        borderColor: '#24EF7F',
+        borderRadius: 20,
+        marginBottom: 25
+    },
+
     title: {
         color: '#FFF',
         fontFamily: 'Archivo_700Bold',
