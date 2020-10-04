@@ -13,12 +13,18 @@ interface ErrorMessageProps {
 
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ text }) => {
     return (
-        <View style={styles.errorMessageBox}>
+        <View style={styles.container}>
 
             <Icon name='alert-triangle' size={40} color={'#FFF'} />
 
-            <Text style={styles.errorMessage}> {text} </Text>
-            
+            <View style={styles.errorMessageBox}>
+
+                <Text style={[styles.errorMessage, {fontSize: 16}]}> Atenção: </Text>
+                <Text style={styles.errorMessage}> {text} </Text>
+
+            </View>
+
+
         </View>
     )
 }

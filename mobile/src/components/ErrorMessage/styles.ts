@@ -1,30 +1,36 @@
 import { StyleSheet } from 'react-native'
 
+
 const style = StyleSheet.create({
-    
-    errorMessageBox: {
-        flex: 1,
+
+    container: {
         position: 'absolute',
-        top: 100,
-        right: 50,
-        width: 275,
-        backgroundColor: '#B3201B',
-        paddingHorizontal: 30,
+        top: -50,
+        left: 30,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: "center",
+        backgroundColor: '#AD2523',
         paddingVertical: 10,
+        paddingHorizontal: 10,
         borderRadius: 10,
         borderWidth: 3,
         borderColor: '#FFF',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: "center"
+    },
+
+    errorMessageBox: {
+        justifyContent: "center",
+        alignItems: "center",
+        width: 200,
+        maxWidth: 250,
+        marginLeft: 15,
     },
 
     errorMessage: {
-        fontFamily: "Archivo_700Bold",
-        fontSize: 13,
+        fontFamily: "Poppins_600SemiBold",
+        fontSize: 15,
         color: '#FFF',
-        marginLeft: 5,
-        width: "100%",
+        width: "95%",
         textAlign: "center"
     }
 })

@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
 
     content: {
         backgroundColor: '#6842C2',
-        height: 600,
         width: "95%",
         borderRadius: 8,
         justifyContent: "center",
@@ -23,13 +22,26 @@ const styles = StyleSheet.create({
         borderWidth: 2
     },
 
+    title:{
+        fontFamily: 'Archivo_700Bold',
+        fontSize: 20,
+        color: '#FFF',
+        marginTop: 10,
+    },
+
     imageBox: {
         backgroundColor: '#9871F5',
         width: 260,
         height: 260,
         borderRadius: 130,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        marginVertical: 20
+    },
+
+    photoSelected:{
+        borderWidth: 5,
+        borderColor: '#04D361'
     },
 
     image:{
@@ -39,15 +51,17 @@ const styles = StyleSheet.create({
     },
 
     buttonSelectPictureGroup: {
-        marginVertical: 50,
+        marginVertical: 10,
         flexDirection: "row",
         justifyContent:"center",
         alignItems: "center",
+        marginBottom: 25
     },
 
     buttonSelectPicture:{
         marginHorizontal: 10,
-        padding: 10,
+        padding: 15,
+        minWidth: 125,
         borderRadius: 8,
         backgroundColor: "#8257E5",
         justifyContent:"center",
@@ -59,20 +73,22 @@ const styles = StyleSheet.create({
     buttonText:{
         color: "#FFF",
         fontFamily: "Archivo_700Bold",
-        fontSize: 11,
+        fontSize: 13,
     },
 
     buttonActionsGroup: {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 15
+        marginVertical: 35
     },
 
     buttonAction:{
         flexDirection: "row",
         justifyContent:"center",
         alignItems: "center",
+        minWidth: 85,
+        minHeight: 50,
         marginHorizontal: 14,
         padding: 10,
         borderRadius: 4,

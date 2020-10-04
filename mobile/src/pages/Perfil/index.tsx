@@ -162,8 +162,8 @@ function Perfil() {
             <PageHeader labelTop='Perfil'>
                 <ImageBackground style={styles.photoBox} source={topBackground} resizeMode='contain'>
 
-                    <TouchableOpacity onPress={() => {setShowPopup(true)}}>
-                        <Image source={avatarDefault} style={styles.photo} />
+                    <TouchableOpacity onPress={() => { setShowPopup(true) }}>
+                        <Image source={avatar ? { uri: avatar } : avatarDefault} style={styles.photo} />
 
                         <View style={styles.buttonCamera}>
                             <Icon name='camera' size={25} color={"#FFF"} />
@@ -308,7 +308,12 @@ function Perfil() {
             }
 
             {
-                showPopup ? <SelectPicture avatar={avatar}/> : null
+                showPopup ?
+                    <SelectPicture
+                        avatar={avatar}
+                        onPhotoChange={(image) => setAvatar(image)}
+                        handleToVisible={(value) => setShowPopup(value)}
+                    /> : null
             }
 
         </View >
