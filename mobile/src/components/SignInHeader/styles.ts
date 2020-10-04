@@ -1,26 +1,20 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const {width} = Dimensions.get('window')
 
 const styles = StyleSheet.create({
-    header: {
+    container: {
         height: "40%",
+        width: "100%",
         backgroundColor: "#9871F5",
         justifyContent: "center",
         alignItems: "center",
     },
 
-    logo: {
-        height: 140,
-        width: 125
-    },
-
-    logoText: {
-        fontFamily: "Poppins_400Regular",
-        fontSize: 14,
-        color: "#D4C2FF",
-        marginTop: -40,
-        width: 140,
-        lineHeight: 16
-    },
+    logo:{
+        width: '100%',
+        height: '100%'
+    }
 })
 
 export default styles;
