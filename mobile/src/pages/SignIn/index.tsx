@@ -6,6 +6,7 @@ import * as SecureStore from 'expo-secure-store';
 
 // Componentes //
 import SignInHeader from './../../components/SignInHeader'
+import ErrorMessage from '../../components/ErrorMessage';
 
 // Contexto //
 import AuthContext from './../../contexts/auth'
@@ -18,6 +19,7 @@ import { Feather } from '@expo/vector-icons'
 
 // Estilo //
 import styles from './styles'
+import Schema from './schema';
 
 const SignIn: React.FC = () => {
 
@@ -27,6 +29,8 @@ const SignIn: React.FC = () => {
 
     const [isButtonDisable, setIsButtonDisable] = useState(true)
     const [hidePassword, setHidePassword] = useState(true)
+    const [showMessage, setShowMessage] = useState(false)
+    const [message, setMessage] = useState('')
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -49,16 +53,38 @@ const SignIn: React.FC = () => {
 
     function handleSignIn() {
 
-        api.post('/signin', { email, password })
-            .then(async (res) => {
+        Schema.validate({ email, password })
+            .then(_ => {
+                api.post('/signin', { email, password })
+                    .then(async (res) => {
 
-                const userData = JSON.stringify(res.data)
+                        const userData = JSON.stringify(res.data)
 
-                await SecureStore.setItemAsync('proffyUser', userData)
+                        await SecureStore.setItemAsync('proffyUser', userData)
 
-                signIn(res.data)
+                        signIn(res.data)
+                    })
+                    .catch(e => {
+
+                        // Exibirá um aviso caso a validação falhe //
+                        setShowMessage(true)
+                        setMessage(e.response.data)
+
+                        setTimeout(() => {
+                            setShowMessage(false)
+                        }, 6000)
+                    })
             })
-            .catch(error => alert(error))
+            .catch(e => {
+
+                // Exibirá um aviso caso a validação falhe //
+                setShowMessage(true)
+                setMessage(e.errors)
+
+                setTimeout(() => {
+                    setShowMessage(false)
+                }, 6000)
+            })
     }
 
     function handleToSignUp() {
@@ -132,6 +158,10 @@ const SignIn: React.FC = () => {
 
                 </View>
             </View>
+
+            {
+                showMessage ? <ErrorMessage text={message} /> : null
+            }
 
         </View>
     )

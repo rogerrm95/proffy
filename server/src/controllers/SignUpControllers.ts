@@ -22,6 +22,6 @@ export default class SignUpControllers {
         await db('users')
             .insert(user)
             .then(_ => res.status(204).send())
-            .catch(err => res.status(500).send('Usuário já existente'))
+            .catch(err => res.status(500).send('E-mail já cadastrado'))
     }
 }

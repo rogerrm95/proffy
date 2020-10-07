@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 
 // Componentes //
@@ -10,6 +11,7 @@ import FieldSets from '../../components/Forms/FieldSets';
 import Inputs from '../../components/Forms/Inputs';
 import Select from '../../components/Forms/Select';
 import TextAreas from '../../components/Forms/TextAreas';
+import SelectPicture from '../../components/SelectPhoto';
 
 // Icones e Imagens //
 import Icon from 'react-native-vector-icons/Feather'
@@ -19,15 +21,13 @@ import topBackground from './../../assets/images/backgroundPerfil.png'
 // Utils //
 import { subjectsList, weekDayList } from './../../utils/subjectsList'
 
-// API e Contexto //
+// API, Contexto e Schema //
 import AuthContext from '../../contexts/auth';
+import Schema from './schema';
 import api from '../../services/api';
 
 // Estilos //
 import styles from './styles'
-import style from '../../components/ErrorMessage/styles';
-import { useNavigation } from '@react-navigation/native';
-import SelectPicture from '../../components/SelectPhoto';
 
 interface OptionProps {
     subject: string,
@@ -50,8 +50,8 @@ function Perfil() {
 
     const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState('')
-    const [oldEmail, setOldEmail] = useState('')
     const [showPopup, setShowPopup] = useState(false)
+    const [oldEmail, setOldEmail] = useState('')
 
     // Usuário //
     const [avatar, setAvatar] = useState('')
@@ -130,31 +130,48 @@ function Perfil() {
 
     async function handleSubmit() {
 
-        api.put('/perfil', {
-            oldEmail, name, lastname, avatar, email, whatsapp, bio, cost, subject
-        })
-            .then(async res => {
+        // Validando os dados... //
+        Schema.validate({
+            avatar, name, lastname, email, whatsapp, bio, cost, subject
+        }).then(_ => {
+            
+            api.put('/perfil', {
+                oldEmail, name, lastname, avatar, email, whatsapp, bio, cost, subject
+            })
+                .then(async res => {
 
-                const storage = JSON.parse(await SecureStore.getItemAsync('proffyUser') as string)
-                const newData = {
-                    name, lastname, avatar, email
-                } as Object
+                    const storage = JSON.parse(await SecureStore.getItemAsync('proffyUser') as string)
+                    const newData = {
+                        name, lastname, avatar, email
+                    } as Object
 
-                const newStorage = { ...storage, ...newData }
+                    const newStorage = { ...storage, ...newData }
 
-                await SecureStore.setItemAsync('proffyUser', JSON.stringify(newStorage))
+                    await SecureStore.setItemAsync('proffyUser', JSON.stringify(newStorage))
 
-                navigate('SucessMessage', {
-                    title: 'Cadastro Atualizado',
-                    description: `Tudo certo, seu cadastro está na nossa lista de professores.
-                    \nAgora é só ficar de olho no seu WhatsApp.`,
-                    buttonText: 'Home'
+                    navigate('SucessMessage', {
+                        title: 'Cadastro Atualizado',
+                        description: `Tudo certo, seu cadastro está na nossa lista de professores.
+                        \nAgora é só ficar de olho no seu WhatsApp.`,
+                        buttonText: 'Home'
+                    })
+
                 })
+                .catch(error => {
+                    alert(error.response.data)
+                })
+        })
+            .catch(e => {
 
+                // Exibirá um aviso caso a validação falhe //
+                setShowMessage(true)
+                setMessage(e.errors)
+
+                setTimeout(() => {
+                    setShowMessage(false)
+                }, 4500)
             })
-            .catch(error => {
-                alert(error.response.data)
-            })
+
     }
 
     return (
@@ -189,6 +206,7 @@ function Perfil() {
                         <Inputs
                             label="Sobrenome *"
                             placeholder='Sobrenome'
+                            maxLength={45}
                             value={lastname}
                             onChangeText={(text) => setLastname(text)}
                         />
@@ -201,6 +219,8 @@ function Perfil() {
                         <Inputs
                             label="WhatsApp *"
                             value={whatsapp}
+                            maxLength={11}
+                            keyboardType='number-pad'
                             placeholder="(XX) X-XXXX-XXXX"
                             onChangeText={(text) => setWhatsapp(text)}
                         />
@@ -209,6 +229,7 @@ function Perfil() {
                             label="Biografia *"
                             height={225}
                             placeholder="Conte-me mais sobre você..."
+                            maxLength={300}
                             value={bio}
                             onChangeText={(text) => setBio(text)} />
 
@@ -229,8 +250,10 @@ function Perfil() {
                         <Inputs
                             label="Custo da sua hora por aula *"
                             placeholder="R$ 0,00"
+                            maxLength={7}
+                            keyboardType='number-pad'
                             value={cost}
-                            onChangeText={(text) => setLastname(text)}
+                            onChangeText={(text) => setCost(text)}
                         />
                     </View>
 

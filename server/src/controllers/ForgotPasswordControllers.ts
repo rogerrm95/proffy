@@ -15,19 +15,19 @@ export default class ForgotPasswordControllers {
 
             const userFromDB = await db('users').where('email', '=', email).first()
 
-            if (userFromDB.length == 0) {
-                res.status(404).send('Usuário não encontrado!')
+            if (!userFromDB) {
+                return res.status(400).send('Usuário não encontrado!')
             }
 
             const token = crypto.randomBytes(20).toString('hex')
 
-            const name = userFromDB.name
+            const { id, name } = userFromDB
 
             const now = new Date();
             now.setHours(now.getHours() + 1)
 
             await db('users')
-                .where('id', '=', userFromDB.id)
+                .where('id', '=', id)
                 .update('passwordResetToken', token)
                 .update('passwordResetExpires', now)
 
@@ -40,7 +40,7 @@ export default class ForgotPasswordControllers {
                 context: { token, name, email }
             })
 
-            res.status(201).send('OK')
+            res.status(201).send()
 
         } catch (e) {
             res.status(500).send('Erro durante o processamento, tente novamente!')
@@ -49,14 +49,14 @@ export default class ForgotPasswordControllers {
 
     async update(req: Request, res: Response) {
 
-        const {email, token, password, confirmPassword} = req.body
+        const { email, token, password, confirmPassword } = req.body
 
         try {
 
             const userFromDB = await db('users').where('email', '=', email).first()
 
             if (!userFromDB) {
-                return res.status(400).send('Erro, usuário não encontrado!' )
+                return res.status(400).send('Erro, usuário não encontrado!')
             }
             if (token !== userFromDB.passwordResetToken) {
                 return res.status(400).send('Erro, Token inválido!')
@@ -68,7 +68,7 @@ export default class ForgotPasswordControllers {
                 return res.status(400).send('Erro, token expirado')
             }
 
-            if(password !== confirmPassword){
+            if (password !== confirmPassword) {
                 return res.status(400).send('Senhas não conferem')
             }
 
