@@ -5,8 +5,8 @@ const style = StyleSheet.create({
 
     container: {
         position: 'absolute',
-        top: -50,
-        left: 30,
+        top: 30,
+        left: 50,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: "center",
@@ -28,7 +28,7 @@ const style = StyleSheet.create({
 
     errorMessage: {
         fontFamily: "Poppins_600SemiBold",
-        fontSize: 15,
+        fontSize: 12,
         color: '#FFF',
         width: "95%",
         textAlign: "center"

@@ -30,13 +30,17 @@ const styles = StyleSheet.create({
         width: 45,
         height: 45,
         borderRadius: 50,
-        marginRight: 15
+        marginRight: 15,
+        borderWidth: 1,
+        borderColor: '#FFF'
     },
 
     name: {
         color: '#d4c2ff',
         fontSize: 16,
-        fontFamily: 'Poppins_400Regular'
+        fontFamily: 'Poppins_400Regular',
+        maxWidth: 200,
+        lineHeight: 20
     },
 
     buttonPerfil:{

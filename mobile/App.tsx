@@ -30,7 +30,7 @@ export default function App() {
       <NavigationContainer>
         <AuthProvider>
           <Routes />
-          <StatusBar style="light" />
+          <StatusBar style="auto" />
         </AuthProvider>
       </NavigationContainer>
     );

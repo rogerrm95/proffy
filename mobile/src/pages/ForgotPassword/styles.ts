@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
         color: '#6A6180',
         fontFamily: 'Poppins_400Regular',
         fontSize: 13,
-        marginVertical: 18,
-        paddingRight: 220,
+        marginVertical: 20,
+        paddingRight: 200,
         lineHeight: 20
     },
 

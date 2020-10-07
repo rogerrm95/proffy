@@ -4,7 +4,7 @@ const {width} = Dimensions.get('window')
 
 const styles = StyleSheet.create({
     container: {
-        height: "40%",
+        height: 350,
         width: "100%",
         backgroundColor: "#9871F5",
         justifyContent: "center",

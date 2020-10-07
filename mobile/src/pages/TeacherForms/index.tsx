@@ -116,7 +116,7 @@ function TeacherForms() {
             })
                 .then(() => {
                     navigate('SucessMessage', {
-                        title: 'Aula cadastrada!',
+                        title: 'Aula cadastrada',
                         description: "Tudo certo, sua aula ja foi cadastrada e você já está na nossa lista de professores. \n\n Agora, basta ficar ligado no seu Whatsapp.",
                         buttonText: 'Home'
                     })
@@ -217,13 +217,13 @@ function TeacherForms() {
                                         <View style={styles.timeInputs}>
                                             <Inputs
                                                 label='Das'
-                                                placeholder='00h00'
+                                                placeholder='HH:MM'
                                                 value={item.from}
                                                 onChangeText={text => setScheduleItemValue(index, 'from', text)}
                                             />
                                             <Inputs
                                                 label='Até'
-                                                placeholder='00h00'
+                                                placeholder='HH:MM'
                                                 value={item.to}
                                                 onChangeText={text => setScheduleItemValue(index, 'to', text)}
                                             />

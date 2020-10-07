@@ -10,17 +10,17 @@ Yup.setLocale({
     },
     string:{
         min: 'Informe um telefone válido (XX) 9999-9999',
-        matches: 'Horas inválidas, siga este formato -> HH:MM'
+        matches: 'Informe um horário entre 00:00 - 23:59'
     },
 })
 
 let schema = Yup.object().shape({
     whatsapp: Yup.string().min(8).required(),
-    bio: Yup.string().max(300).required(),
+    bio: Yup.string().required(),
     subject: Yup.string().required(),
     cost: Yup.number().required(),
     schedule: Yup.array().of(Yup.object().shape({
-        week_day: Yup.number().required(),
+        week_day: Yup.string().required(),
         from: Yup.string().matches(regexTime).required(),
         to: Yup.string().matches(regexTime).required()
     }))
