@@ -91,8 +91,8 @@ function Perfil() {
 
                 setSubjects(data.subjects)
 
-                timeOfClass.map((e: any) => {
-                    return times.push(e)
+                timeOfClass.map((time: any) => {
+                    return setTimes([...times, time])
                 })
             })
             .catch(e => {
