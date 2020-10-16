@@ -10,7 +10,7 @@ import studyIcon from './../../assets/images/icons/study.png'
 import giveClassesIcon from './../../assets/images/icons/give-classes.png'
 import landingImage from './../../assets/images/landing.png'
 import heartIcon from './../../assets/images/icons/heart.png'
-import userDefault from './../../assets/images/user.png'
+import avatarDefault from './../../assets/images/user.png'
 
 // Contexto e API//
 import api from '../../services/api'
@@ -19,7 +19,10 @@ import AuthContext from '../../contexts/auth';
 // Styles //
 import styles from './styles';
 
-interface DataStorage{
+// URL - Arquivos Estáticos //
+const staticFileURL = 'http://192.168.15.2:8081/public'
+
+interface DataStorage {
     avatar: string,
     name: string,
     lastname: string
@@ -28,12 +31,12 @@ interface DataStorage{
 function Landing() {
 
     const { navigate } = useNavigation()
-    const { signIn } = useContext(AuthContext)
-    
+    const context = useContext(AuthContext)
+
     const [totalConnections, setTotalConnections] = useState(0)
     const [name, setName] = useState('')
-    const [avatar, setAvatar] = useState('')
-    
+    const [avatar, setAvatar] = useState('') as any
+
     // Usado para incrementar +1 no total de conexões sempre que houver uma //
     useEffect(() => {
         api.get('connections').then(res => {
@@ -44,19 +47,20 @@ function Landing() {
         })
             .catch(e => alert(e))
     })
-   
-    // Utilizado para capturar o nome e a foto do usuário vindo da SecureStorage //
+
+    // Utilizado para capturar o nome e a foto do usuário //
     useEffect(() => {
 
-        async function getStorage() {
-            const storage = await SecureStore.getItemAsync('proffyUser') as string
-            const data = JSON.parse(storage) as DataStorage
+        api.get('/perfil', { params: context.user })
+            .then(res => {
 
-            setName(`${data.name} ${data.lastname}`)
-            setAvatar(data.avatar)
-        }
-
-        getStorage()
+                const data = res.data
+                setName(`${data.name} ${data.lastname}`)
+                setAvatar(data.avatar)
+            })
+            .catch(e => {
+                alert(e)
+            })
     }, [])
 
     function handleNavigateToGiveClassesPage() {
@@ -73,7 +77,7 @@ function Landing() {
 
     async function handleToLogout() {
         await SecureStore.deleteItemAsync('proffyUser')
-        signIn(null)
+        context.signIn(null)
     }
 
     return (
@@ -91,7 +95,7 @@ function Landing() {
 
                         <View style={styles.userPerfil}>
                             <Image
-                                source={avatar !== '' ? {uri: avatar} : userDefault}
+                                source={avatar ? { uri: `${staticFileURL}/${avatar}` } : avatarDefault}
                                 style={styles.avatar} />
 
                             <Text style={styles.name}>{name}</Text>

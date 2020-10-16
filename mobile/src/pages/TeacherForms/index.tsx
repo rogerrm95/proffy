@@ -24,6 +24,10 @@ import Schema from './schema'
 // Estilo //
 import styles from './styles'
 
+// URL - Arquivos Estáticos //
+const staticFileURL = 'http://192.168.15.2:8081/public'
+
+
 function TeacherForms() {
 
     const { user } = useContext(AuthContext)
@@ -151,7 +155,12 @@ function TeacherForms() {
 
                         <FieldSets label="Seus dados" />
                         <View style={styles.profile}>
-                            <Image source={avatar ? { uri: avatar } : defaultAvatar} style={styles.avatar} />
+
+                            <Image
+                                source={avatar ? { uri: `${staticFileURL}/${avatar}` } : defaultAvatar}
+                                style={styles.avatar}
+                            />
+
                             <View>
                                 <Text style={styles.name}>{`${name} ${lastname}`}</Text>
                                 <Text style={styles.subject}>{subject}</Text>
@@ -192,6 +201,7 @@ function TeacherForms() {
                             label='Custo da sua hora por aula'
                             placeholder='R$'
                             onChangeText={(e) => setCost(e)}
+                            keyboardType='number-pad'
                         />
                     </View>
 

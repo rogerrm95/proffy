@@ -107,6 +107,14 @@ const styles = StyleSheet.create({
     buttonClose:{
         backgroundColor: "#828282"
     },
+
+    buttonClear:{
+        backgroundColor: "#EBB210"
+    },
+
+    disabled: {
+        opacity: 0.5
+    }
 })
 
 export default styles;

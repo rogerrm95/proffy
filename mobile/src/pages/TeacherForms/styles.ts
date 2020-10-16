@@ -34,9 +34,8 @@ const styles = StyleSheet.create({
     },
 
     avatar: {
-        width: 70,
-        height: 70,
-        resizeMode: "contain",
+        width: 85,
+        height: 85,
         borderRadius: 50,
         marginRight: 15
     },

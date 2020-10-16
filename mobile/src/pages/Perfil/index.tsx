@@ -29,6 +29,9 @@ import api from '../../services/api';
 // Estilos //
 import styles from './styles'
 
+// URL - Arquivos Estáticos //
+const staticFileURL = 'http://192.168.15.2:8081/public'
+
 interface OptionProps {
     subject: string,
     cost: number,
@@ -45,7 +48,7 @@ interface timeProps {
 
 function Perfil() {
 
-    const { user } = useContext(AuthContext)
+    const { user, signed } = useContext(AuthContext)
     const { navigate } = useNavigation()
 
     const [showMessage, setShowMessage] = useState(false)
@@ -54,7 +57,7 @@ function Perfil() {
     const [oldEmail, setOldEmail] = useState('')
 
     // Usuário //
-    const [avatar, setAvatar] = useState('')
+    const [avatar, setAvatar] = useState('') as any
     const [bio, setBio] = useState('')
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
@@ -64,7 +67,7 @@ function Perfil() {
     // Máteria //
     const [subjects, setSubjects] = useState([])
     const [subject, setSubject] = useState('')
-    const [cost, setCost] = useState('')
+    const [cost, setCost] = useState('0')
 
     // Horários //
     const [times, setTimes] = useState([] as any)
@@ -79,7 +82,7 @@ function Perfil() {
                 const timeOfClass = data.subjects
                 setOldEmail(data.email)
 
-                setAvatar(data.avatar)
+                setAvatar(data.avatar ? data.avatar : null)
                 setName(data.name)
                 setLastname(data.lastname)
                 setBio(data.bio)
@@ -93,7 +96,7 @@ function Perfil() {
                 })
             })
             .catch(e => {
-                alert(e.response.data)
+                alert(e)
             })
     }, [])
 
@@ -112,6 +115,8 @@ function Perfil() {
                     times.push(time)
                 })
             }
+
+            console.log(times)
         })
     }
 
@@ -134,7 +139,7 @@ function Perfil() {
         Schema.validate({
             avatar, name, lastname, email, whatsapp, bio, cost, subject
         }).then(_ => {
-            
+
             api.put('/perfil', {
                 oldEmail, name, lastname, avatar, email, whatsapp, bio, cost, subject
             })
@@ -180,14 +185,17 @@ function Perfil() {
                 <ImageBackground style={styles.photoBox} source={topBackground} resizeMode='contain'>
 
                     <TouchableOpacity onPress={() => { setShowPopup(true) }}>
-                        <Image source={avatar ? { uri: avatar } : avatarDefault} style={styles.photo} />
+                        <Image
+                            source={avatar ? { uri: `${staticFileURL}/${avatar}` } : avatarDefault}
+                            style={styles.photo}
+                        />
 
                         <View style={styles.buttonCamera}>
                             <Icon name='camera' size={25} color={"#FFF"} />
                         </View>
                     </TouchableOpacity>
 
-                    <Text style={styles.name}>Rogério Marques</Text>
+                    <Text style={styles.name}>{`${name} ${lastname}`}</Text>
 
                 </ImageBackground>
             </PageHeader>
@@ -253,6 +261,7 @@ function Perfil() {
                             maxLength={7}
                             keyboardType='number-pad'
                             value={cost}
+                            editable={subjects.length > 0 ? true : false}
                             onChangeText={(text) => setCost(text)}
                         />
                     </View>
@@ -268,7 +277,8 @@ function Perfil() {
                                             <Select
                                                 label="Dia da Semana"
                                                 options={weekDayList}
-                                                selectedValue={weekDayList[scheduleItem.week_day]}
+                                                selectedValue={scheduleItem.week_day}
+                                                enabled={false}
                                             />
 
                                             <View style={styles.timeInputs}>
@@ -276,11 +286,13 @@ function Perfil() {
                                                     label='Das'
                                                     placeholder='00h00'
                                                     value={scheduleItem.from}
+                                                    editable={false}
                                                 />
                                                 <Inputs
                                                     label='Até'
                                                     placeholder='00h00'
                                                     value={scheduleItem.to}
+                                                    editable={false}
                                                 />
                                             </View>
 
@@ -333,7 +345,7 @@ function Perfil() {
             {
                 showPopup ?
                     <SelectPicture
-                        avatar={avatar}
+                        avatar={avatar ? avatar : null}
                         onPhotoChange={(image) => setAvatar(image)}
                         handleToVisible={(value) => setShowPopup(value)}
                     /> : null

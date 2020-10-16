@@ -15,6 +15,7 @@ import { AuthProvider } from './src/contexts/auth'
 
 export default function App() {
 
+
   let [fontsLoaded] = useFonts({
     Archivo_400Regular,
     Archivo_700Bold,

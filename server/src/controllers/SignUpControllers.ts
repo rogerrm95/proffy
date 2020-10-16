@@ -13,15 +13,20 @@ export default class SignUpControllers {
 
         const user = { ...req.body }
 
-        const userFromBD = await db('users').where({ email: user.email }).first()
+        try {
+            const userFromBD = await db('users').where({ email: user.email }).first()
 
-        user.password = encryptPassword(user.password)
-        delete user.confirmPassword
+            user.password = encryptPassword(user.password)
+            delete user.confirmPassword
 
-        // Salvando no Banco de Dados //
-        await db('users')
-            .insert(user)
-            .then(_ => res.status(204).send())
-            .catch(err => res.status(500).send('E-mail já cadastrado'))
+            // Salvando no Banco de Dados //
+            await db('users')
+                .insert(user)
+                .then(_ => res.status(204).send())
+                .catch(err => res.status(500).send('E-mail já cadastrado'))
+        }
+        catch (e) {
+            res.status(400).send('Erro durante o processamento, por favor, tente novamente')
+        }
     }
 }

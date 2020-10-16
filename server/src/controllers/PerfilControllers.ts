@@ -10,9 +10,10 @@ interface ScheduleItem {
     to: string
 }
 
+
 export default class PerfilControllers {
     async index(req: Request, res: Response) {
-        
+
         const data = req.query
         const email = data.email as string
 
@@ -60,7 +61,7 @@ export default class PerfilControllers {
                 bio: userFromDB.bio,
                 subjects: scheduleSubjects,
             }
-
+            
             return res.status(201).json(user)
 
         } catch (e) {
@@ -69,8 +70,9 @@ export default class PerfilControllers {
     }
 
     async update(req: Request, res: Response) {
+
         const {
-            oldEmail,name, lastname, avatar, email, whatsapp, bio, cost, subject 
+            oldEmail, name, lastname, email, whatsapp, bio, cost, subject
         } = req.body
 
         const trx = await db.transaction()
@@ -83,20 +85,13 @@ export default class PerfilControllers {
                 return res.status(400).send('Por favor, informe o custo da aual')
             }
 
-            if (subject === '' && cost !== '') {
-
-                await trx.rollback();
-
-                return res.status(400).send("Selecione uma matéria ou acesse: Home > Dar Aula - para cadastrar uma nova")
-            }
-
             const userFromDB = await trx('users')
                 .select('id')
                 .where('email', '=', oldEmail)
                 .first()
 
             await trx('users').update({
-                name, lastname, avatar, email, whatsapp, bio
+                name, lastname, email, whatsapp, bio
             }).where('id', '=', userFromDB.id)
 
             await trx('classes').update({
@@ -109,9 +104,9 @@ export default class PerfilControllers {
         }
         catch (err) {
 
-            await trx.rollback();
+            await trx.rollback();      
 
-            res.status(400).send("Unexpected error while creating new class")
+            res.status(400).send('Erro durante o processamento, tente novamente: ')
         }
     }
 

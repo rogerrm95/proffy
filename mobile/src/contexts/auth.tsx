@@ -8,13 +8,13 @@ interface AuthContextData {
     signIn: Function
 }
 
-interface User {
+export interface User {
     iat?: number,
     exp?: number,
     name: string,
     lastname: string,
     email: string,
-    avatar: string,
+    avatar?: string,
     token?: string,
 }
 
