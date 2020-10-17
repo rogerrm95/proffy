@@ -33,10 +33,9 @@ const SelectCustom: React.FC<SelectCustomProps> = ({ options }) => {
     return (
         <div className='select-custom-containter'>
 
-            <p 
-            onClick={() => setShowOptions(!showOptions)}>
+            <p onClick={() => setShowOptions(!showOptions)}>
                 {label}
-                <img src={arrowDownIcon} width='12' height='12'/>
+                <img src={arrowDownIcon} width='12' height='12' alt='item'/>
             </p>
 
             <ul

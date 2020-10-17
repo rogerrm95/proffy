@@ -3,8 +3,6 @@ import React from 'react'
 // Componentes //
 import TopBarHeader from '../TopBarHeader';
 
-import backgroundImage from './../../assets/images/backgroundTeste.svg'
-
 // CSS //
 import './style.css'
 

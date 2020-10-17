@@ -7,10 +7,11 @@ import Input from '../../components/Input'
 import Textarea from '../../components/TextArea'
 import Select from '../../components/Select'
 
-// Icon //
+// Icones e Imagens //
 import warningIcon from './../../assets/images/icons/warning.svg'
+import avatarDefault from './../../assets/images/user.png'
 
-// API e Contextos //
+// API e Context //
 import api from '../../services/api'
 import AuthContext from '../../contexts/auth'
 
@@ -19,7 +20,24 @@ import './style.css'
 
 function TeacherForms() {
 
+    // Pasta Estática //
+    const url = 'http://localhost:8081/public'
+
     const { user } = useContext(AuthContext)
+    const history = useHistory()
+
+    const [name, setName] = useState('')
+    const [lastname, setLastname] = useState('')
+    const [avatar, setAvatar] = useState('')
+    const [whatsapp, setWhatsapp] = useState('')
+    const [bio, setBio] = useState('')
+    const [email, setEmail] = useState('')
+
+    const [subject, setSubject] = useState('')
+    const [cost, setCost] = useState('')
+    const [scheduleItems, setScheduleItems] = useState([
+        { week_day: 0, from: '', to: '' },
+    ])
 
     useEffect(() => {
 
@@ -40,22 +58,7 @@ function TeacherForms() {
                 alert(e.response.data)
             })
 
-    }, [])
-
-    const history = useHistory()
-
-    const [name, setName] = useState('')
-    const [lastname, setLastname] = useState('')
-    const [avatar, setAvatar] = useState('')
-    const [whatsapp, setWhatsapp] = useState('')
-    const [bio, setBio] = useState('')
-    const [email, setEmail] = useState('')
-
-    const [subject, setSubject] = useState('')
-    const [cost, setCost] = useState('')
-    const [scheduleItems, setScheduleItems] = useState([
-        { week_day: 0, from: '', to: '' },
-    ])
+    }, [user])
 
     function addNewScheduleItem() {
         setScheduleItems([
@@ -131,7 +134,10 @@ function TeacherForms() {
 
                         <div id='forms-user'>
 
-                            <img src={avatar} alt='Foto de Perfil' id='photo-user' />
+                            <img
+                                src={avatar ? `${url}/${avatar}` : avatarDefault}
+                                alt='Foto de Perfil' id='photo-user'
+                            />
 
                             <span>{`${name} ${lastname}`}</span>
 

@@ -19,6 +19,16 @@ import "./style.css"
 
 function Landing() {
 
+    // Pasta Estática //
+    const url = 'http://localhost:8081/public'
+
+    
+    const context = useContext(AuthContext)
+    
+    const [totalConnections, setTotalConnections] = useState(0)
+    const [avatar, setAvatar] = useState('')
+    const [name, setName] = useState('')
+    
     useEffect(() => {
 
         api.get('/connections').then(res => {
@@ -34,14 +44,9 @@ function Landing() {
 
         setAvatar(data.avatar)
         setName(`${data.name} ${data.lastname}`)
+
     }, [])
-
-    const context = useContext(AuthContext)
-
-    const [totalConnections, setTotalConnections] = useState(0)
-    const [avatar, setAvatar] = useState('')
-    const [name, setName] = useState('')
-
+    
     function handleToLogout() {
 
         localStorage.removeItem('@proffyUser')
@@ -57,12 +62,15 @@ function Landing() {
                 <div className='top-bar'>
 
                     <Link to='/perfil' className='perfil'>
-                        <img src={avatar ? avatar : userDefault} alt='Foto de Perfil'/>
+                        <img
+                            src={avatar ? `${url}/${avatar}` : userDefault}
+                            alt='Foto de Perfil'
+                        />
                         <span>{name}</span>
                     </Link>
 
                     <button onClick={handleToLogout}>
-                        <img src={logoutIcon} alt='Sair'/>
+                        <img src={logoutIcon} alt='Sair' />
                     </button>
 
                 </div>

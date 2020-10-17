@@ -26,6 +26,8 @@ function TeacherList() {
     function searchTeachers(e: FormEvent) {
         e.preventDefault()
 
+        console.log(subject, week_day, time)
+
         api.get('/classes', {
             params: {
                 subject, week_day, time
