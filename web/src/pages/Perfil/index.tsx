@@ -240,7 +240,6 @@ function Perfil() {
                                 name='cost'
                                 label='Custo da sua hora por aula   (em R$)'
                                 value={cost}
-                                required
                                 onChange={(e) => { setCost(e.target.value) }}
                             />
                         </div>

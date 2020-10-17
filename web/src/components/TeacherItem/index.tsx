@@ -5,9 +5,13 @@ import DayOfWeekItem, { DayOfWeekItemProps } from './../DayOfWeekItem'
 
 // Icon //
 import whatsappIcon from './../../assets/images/icons/whatsapp.svg'
+import avatarDefault from './../../assets/images/user.png'
 
 // API //
 import api from '../../services/api'
+
+// Utils //
+import { weekDayList } from './../../utils/subjectsList'
 
 // CSS //
 import './style.css'
@@ -29,9 +33,8 @@ interface TeacherItemProps {
 
 const TeacherItem: React.FC<TeacherItemProps> = ({ info }) => {
 
-    const weekDay = [
-        "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"
-    ]
+    // Pasta Estática //
+    const url = 'http://localhost:8081/public'
 
     const times = info.times as Array<any>
 
@@ -45,7 +48,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ info }) => {
         <article className='teacher-item'>
             <header>
                 <img
-                    src={info.avatar}
+                    src={info.avatar ? `${url}/${info.avatar}` : avatarDefault}
                     alt="Avatar" />
 
                 <div>
@@ -58,7 +61,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ info }) => {
 
             <div className='week-container'>
                 {
-                    weekDay.map((week: string, index) => {
+                    weekDayList.map((week: string, index) => {
 
                         let item;
                         const arrayOfTime = [] as Array<any>
