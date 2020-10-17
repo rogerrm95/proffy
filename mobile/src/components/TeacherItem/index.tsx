@@ -9,14 +9,17 @@ import unfavoriteIcon from './../../assets/images/icons/unfavorite.png'
 import whatsappIcon from './../../assets/images/icons/whatsapp.png'
 import avatarDefault from './../../assets/images/user.png'
 
-// Styles //
-import styles from './styles';
+// Componente //
+import DayOfWeekItem, { DayOfWeekItemProps } from './../DayOfWeekItem';
 
 // API //
 import api from '../../services/api';
 
-// Componente //
-import DayOfWeekItem, { DayOfWeekItemProps } from './../DayOfWeekItem';
+// utils //
+import { weekDayList } from './../../utils/subjectsList'
+
+// Styles //
+import styles from './styles';
 
 export interface Teacher {
     id: number,
@@ -34,12 +37,12 @@ interface TeacherItemProps {
     favorited: boolean
 }
 
+// URL - Arquivos Estáticos //
+const staticFileURL = 'http://192.168.15.28:8081/public'
+
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
 
     const [isFavorited, setIsFavorited] = useState(favorited)
-    const weekDay = [
-        "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"
-    ]
 
     const times = teacher.times as Array<any>
 
@@ -85,7 +88,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
         <View style={styles.container}>
             <View style={styles.profile}>
                 <Image
-                    source={teacher.avatar ? { uri: `${teacher.avatar}` } : avatarDefault}
+                    source={teacher.avatar ? { uri: `${staticFileURL}/${teacher.avatar}` } : avatarDefault}
                     style={styles.avatar}
                 />
 
@@ -98,14 +101,14 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
             <Text style={styles.bio}>{teacher.bio}</Text>
 
             <View style={styles.dayAndTime}>
-                    <Text style={styles.dayAndTimeText}>Dia</Text>
-                    <Text style={styles.dayAndTimeText}>Horário</Text>
+                <Text style={styles.dayAndTimeText}>Dia</Text>
+                <Text style={styles.dayAndTimeText}>Horário</Text>
             </View>
 
             <ScrollView style={styles.scrollweekDay}>
 
                 {
-                    weekDay.map((week: string, index) => {
+                    weekDayList.map((week: string, index) => {
 
                         let item;
                         const arrayOfTime = [] as Array<any>
@@ -120,8 +123,8 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
 
                             return item = <DayOfWeekItem keys={index} times={arrayOfTime} week={week} key={index} />
                         })
-                        
-                        return item 
+
+                        return item
                     })
                 }
             </ScrollView>

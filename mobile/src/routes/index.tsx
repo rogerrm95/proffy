@@ -21,8 +21,6 @@ const Routes: React.FC = () => {
             const storage = await SecureStore.getItemAsync('proffyUser') as string
             const userData = JSON.parse(storage)
 
-            console.log(userData)
-
             api.post('/validate-token', userData)
                 .then(res => {
                     if (res.data) {

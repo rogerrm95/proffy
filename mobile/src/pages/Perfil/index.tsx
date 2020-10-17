@@ -30,7 +30,7 @@ import api from '../../services/api';
 import styles from './styles'
 
 // URL - Arquivos Estáticos //
-const staticFileURL = 'http://192.168.15.2:8081/public'
+const staticFileURL = 'http://192.168.15.28:8081/public'
 
 interface OptionProps {
     subject: string,
@@ -67,7 +67,7 @@ function Perfil() {
     // Máteria //
     const [subjects, setSubjects] = useState([])
     const [subject, setSubject] = useState('')
-    const [cost, setCost] = useState('0')
+    const [cost, setCost] = useState('0,00')
 
     // Horários //
     const [times, setTimes] = useState([] as any)
@@ -106,8 +106,8 @@ function Perfil() {
 
         subjects.forEach((option: OptionProps) => {
 
-            if (value == option.subject) {
-
+            if (option.subject === value) {
+                
                 setCost(option.cost.toString())
                 setSubject(option.subject)
 
@@ -115,8 +115,6 @@ function Perfil() {
                     times.push(time)
                 })
             }
-
-            console.log(times)
         })
     }
 
@@ -137,7 +135,7 @@ function Perfil() {
 
         // Validando os dados... //
         Schema.validate({
-            avatar, name, lastname, email, whatsapp, bio, cost, subject
+            name, lastname, email, whatsapp, bio, cost
         }).then(_ => {
 
             api.put('/perfil', {
@@ -176,7 +174,6 @@ function Perfil() {
                     setShowMessage(false)
                 }, 4500)
             })
-
     }
 
     return (
@@ -203,7 +200,7 @@ function Perfil() {
             <View style={styles.content}>
                 <ScrollView style={styles.scrollForms}>
                     <View style={styles.formGroup}>
-                        <FieldSets label='Seus Dados' />
+                        <FieldSets label='Seus Dados'/>
 
                         <Inputs
                             label="Nome *"
@@ -238,9 +235,10 @@ function Perfil() {
                             height={225}
                             placeholder="Conte-me mais sobre você..."
                             maxLength={300}
+                            multiline
                             value={bio}
-                            onChangeText={(text) => setBio(text)} />
-
+                            onChangeText={(text) => setBio(text)}    
+                        />
                     </View>
 
                     <View style={styles.formGroup}>
@@ -277,7 +275,7 @@ function Perfil() {
                                             <Select
                                                 label="Dia da Semana"
                                                 options={weekDayList}
-                                                selectedValue={scheduleItem.week_day}
+                                                selectedValue={weekDayList[scheduleItem.week_day]}
                                                 enabled={false}
                                             />
 

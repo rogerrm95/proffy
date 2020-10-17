@@ -65,7 +65,7 @@ function TeacherList() {
                             time
                         }
                     })
-
+                                        
                     setTeachers(response.data)
                     setIsFiltersVisible(false)
                 })

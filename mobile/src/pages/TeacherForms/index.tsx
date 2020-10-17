@@ -21,11 +21,14 @@ import api from '../../services/api'
 import AuthContext from '../../contexts/auth'
 import Schema from './schema'
 
+// Utils //
+import { subjectsList, weekDayList } from './../../utils/subjectsList'
+
 // Estilo //
 import styles from './styles'
 
 // URL - Arquivos Estáticos //
-const staticFileURL = 'http://192.168.15.2:8081/public'
+const staticFileURL = 'http://192.168.15.28:8081/public'
 
 
 function TeacherForms() {
@@ -48,13 +51,6 @@ function TeacherForms() {
     const [scheduleItems, setScheduleItems] = useState([
         { week_day: 0, from: '', to: '' },
     ])
-
-    const weekOfDayArray = [
-        "Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira",
-        "Sexta-Feira", "Sábado"]
-
-    const subjectsArray = ["Artes", "Educação Física", "Física", "História", "Matemática",
-        "Português", "Química", "Sociologia"]
 
     // Carregando os dados através da API //
     useEffect(() => {
@@ -98,7 +94,13 @@ function TeacherForms() {
     function setScheduleItemValue(position: number, field: string, value: string) {
         const updateScheduleItems = scheduleItems.map((scheduleItem, index) => {
             if (index === position) {
-                return { ...scheduleItem, [field]: value }
+                if (field === 'week_day') {
+                    const key = weekDayList.indexOf(value)
+                    return { ...scheduleItem, [field]: key }
+                }
+                else {
+                    return { ...scheduleItem, [field]: value }
+                }
             }
 
             return scheduleItem
@@ -192,7 +194,7 @@ function TeacherForms() {
                         <FieldSets label="Sobre a aula" />
                         <Select
                             label='Matéria'
-                            options={subjectsArray}
+                            options={subjectsList}
                             selectedValue={subject}
                             onValueChange={((e: string) => setSubject(e))}
                         />
@@ -219,8 +221,8 @@ function TeacherForms() {
                                     <View key={index}>
                                         <Select
                                             label="Dia da Semana"
-                                            options={weekOfDayArray}
-                                            selectedValue={item.week_day}
+                                            options={weekDayList}
+                                            selectedValue={weekDayList[item.week_day]}
                                             onValueChange={(text: any) => setScheduleItemValue(index, 'week_day', text)}
                                         />
 

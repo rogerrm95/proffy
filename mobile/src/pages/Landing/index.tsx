@@ -20,7 +20,7 @@ import AuthContext from '../../contexts/auth';
 import styles from './styles';
 
 // URL - Arquivos Estáticos //
-const staticFileURL = 'http://192.168.15.2:8081/public'
+const staticFileURL = 'http://192.168.15.28:8081/public'
 
 interface DataStorage {
     avatar: string,
@@ -46,7 +46,7 @@ function Landing() {
             setTotalConnections(total)
         })
             .catch(e => alert(e))
-    })
+    },[])
 
     // Utilizado para capturar o nome e a foto do usuário //
     useEffect(() => {
