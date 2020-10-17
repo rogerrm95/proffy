@@ -34,7 +34,10 @@ interface timeProps {
     class_id: number
 }
 
-function UserPerfil() {
+function Perfil() {
+
+    // Pasta Estática //
+    const url = 'http://localhost:8081/public'
 
     const { user } = useContext(AuthContext)
     const [oldEmail, setOldEmail] = useState('')
@@ -53,7 +56,7 @@ function UserPerfil() {
     const [cost, setCost] = useState('')
 
     // Horários //
-    const [times, setTimes] = useState([] as any)
+    const [times, setTimes] = useState([]) as any
 
     const [isPopupVisible, setIsPopupVisible] = useState(false)
     const [hasScheduleItem, setHasScheduleItem] = useState(false)
@@ -79,7 +82,7 @@ function UserPerfil() {
                 setSubjects(data.subjects)
 
                 timeOfClass.map((e: any) => {
-                    return times.push(e)
+                    return setTimes([...times, e])
                 })
             })
             .catch(e => {
@@ -94,7 +97,7 @@ function UserPerfil() {
 
         subjects.forEach((option: OptionProps) => {
 
-            if (value == option.subject) {
+            if (value === option.subject) {
 
                 setCost(option.cost.toString())
                 setSubject(option.subject)
@@ -153,7 +156,7 @@ function UserPerfil() {
 
             <div className="perfil-info">
                 <img
-                    src={avatar ? avatar : userDefault}
+                    src={avatar ? `${url}/${avatar}` : userDefault}
                     alt='Foto de Perfil'
                     id='info-photo' />
                 <img
@@ -327,7 +330,7 @@ function UserPerfil() {
 
                             <h2>Adicionar Foto:</h2>
 
-                            <Input label='URL' name='url' icon={linkIcon}/>
+                            <Input label='URL' name='url' icon={linkIcon} />
 
                             <div className="buttons-container">
                                 <button
@@ -361,4 +364,4 @@ function UserPerfil() {
     )
 }
 
-export default UserPerfil;
+export default Perfil;
