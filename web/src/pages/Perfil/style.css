@@ -17,6 +17,13 @@
     width: 135px;
     max-width: 175px;
     border-radius: 50%;
+    border: 3px #FFF solid;
+    cursor: pointer;
+}
+
+.perfil-info #info-photo:hover{
+    opacity: 0.7; 
+    transition: 0.5s;
 }
 
 .perfil-info #info-camera{
@@ -24,18 +31,18 @@
     top: -35px;
     left: 30px;
 
-    width: 35px;
-    padding: 0.5rem;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #FFF;
+    padding: 0.6rem;
     border-radius: 40%;
     background-color: var(--color-secundary-dark);
-    transition: 0.3s;
+    transition: 0.5s;
 }
 
 .perfil-info #info-camera:hover{
     cursor: pointer;
-    padding: 0.7rem;
     background-color: var(--color-primary-dark);
-    border: 2px solid #FFF
 }
 
 .perfil-info > h2 {

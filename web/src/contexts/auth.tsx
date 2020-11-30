@@ -6,7 +6,7 @@ interface AuthContextData {
     signIn: Function
 }
 
-interface User {
+export interface User {
     iat?: number,
     exp?: number,
     name: string,

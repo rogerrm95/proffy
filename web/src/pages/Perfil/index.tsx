@@ -5,6 +5,7 @@ import TopBarHeader from '../../components/TopBarHeader'
 import Input from '../../components/Input'
 import TextArea from '../../components/TextArea'
 import Select from '../../components/Select'
+import SelectPhoto from '../../components/SelectPhoto'
 
 // Contexto e API//
 import AuthContext from './../../contexts/auth'
@@ -13,7 +14,6 @@ import api from '../../services/api'
 // Icones e Imagens //
 import userDefault from './../../assets/images/user.png'
 import cameraIcon from './../../assets/images/icons/camera.svg'
-import linkIcon from './../../assets/images/icons/purple-link.svg'
 import warningIcon from './../../assets/images/icons/warning.svg'
 import noTimeIcon from './../../assets/images/icons/x-circle.svg'
 
@@ -158,12 +158,15 @@ function Perfil() {
                 <img
                     src={avatar ? `${url}/${avatar}` : userDefault}
                     alt='Foto de Perfil'
-                    id='info-photo' />
+                    id='info-photo'
+                    onClick={() => setIsPopupVisible(true)}
+                />
                 <img
                     src={cameraIcon}
                     alt='Adicionar Foto'
                     id='info-camera'
-                    onClick={() => setIsPopupVisible(true)} />
+                    onClick={() => setIsPopupVisible(true)}
+                />
                 <h2>
                     {`${name} ${lastname}`}
                 </h2>
@@ -324,39 +327,10 @@ function Perfil() {
 
             {
                 isPopupVisible ?
-                    <div id='pop-up'>
-                        <div className='window'>
-
-                            <h2>Adicionar Foto:</h2>
-
-                            <Input label='URL' name='url' icon={linkIcon} />
-
-                            <div className="buttons-container">
-                                <button
-                                    id='save'
-                                    onClick={() => {
-                                        const url = (document.querySelector('#url')) as HTMLInputElement
-                                        setAvatar(url.value)
-                                        setIsPopupVisible(false)
-                                    }}>
-                                    Salvar
-                                </button>
-
-                                <button
-                                    id='delete'
-                                    onClick={() => { setAvatar('') }}>
-                                    Excluir
-                                </button>
-
-                                <button
-                                    id='close'
-                                    onClick={() => { setIsPopupVisible(false) }}>
-                                    Fechar
-                                </button>
-
-                            </div>
-                        </div>
-                    </div>
+                    <SelectPhoto
+                        avatar={avatar}
+                        onPhotoChange={(e: any) => setAvatar(e)}
+                        handleToVisible={(e: boolean) => setIsPopupVisible(e)} />
                     : null
             }
         </div >

@@ -1,0 +1,138 @@
+#container {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.541);
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 95%;
+    height: 70rem;
+
+    background-color: var(--color-primary-darker);
+    border-radius: 0.8rem;
+    border: var(--color-primary) 1px solid;
+}
+
+.content .title{
+    font-family: 'Poppins';
+    font-weight: 600;
+    color: var(--color-title-in-primary);
+    margin: 2.6rem 0rem
+}
+
+.content .photo{
+    width: 30rem;
+    max-width: 300px;
+    height: 30rem;
+    max-height: 300px;
+
+    border: var(--color-primary) 5px solid;
+    border-radius: 50%;
+    margin: 2.2rem 0rem
+}
+
+#choose-photo-buttom{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 2.6rem 0;
+}
+
+.content .button {
+    border: none;
+    outline: none;
+}
+
+.content .button:hover{
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+#choose-photo-buttom .button{
+    min-width: 12rem;
+    padding: 0.6rem;
+    margin: 0 1.8rem;
+    border-radius: 0.8rem;
+    border: 2px solid var(--color-border-light);
+    background-color: var(--color-primary);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#choose-photo-buttom img{
+    width: 5.2rem;
+}
+
+#choose-photo-buttom .inputFile{
+    display: none;
+}
+
+#choose-photo-buttom span{
+    color: var(--color-title-in-primary);
+    margin-top: 0.5rem;
+}
+
+.content .actions-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 2.6rem 0;
+}
+
+.content .actions-buttons button{
+    min-width: 12rem;
+    padding: 0.8rem;
+    margin: 0 1.8rem;
+    border-radius: 0.6rem;
+    border: 2px solid var(--color-border-light);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.content .actions-buttons #save{
+    background-color: var(--color-secundary);
+}
+
+.content .actions-buttons #delete{
+    background-color: var(--color-button-delete);
+}
+
+.content .actions-buttons #clear{
+    background-color: var(--color-button-clear);
+}
+
+.content .actions-buttons span{
+    color: var(--color-title-in-primary);
+    font-size: 1.4rem;
+}
+
+.content .actions-buttons img{
+    width: 2.6rem;
+    margin-left: 0.8rem;
+}
+
+/* BREAKING POINT */
+
+.content{
+    max-width: 650px;
+}

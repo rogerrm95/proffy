@@ -5,7 +5,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Landing from '../pages/Landing'
 import TeacherList from '../pages/TeacherList'
 import TeacherForms from '../pages/TeacherForms'
-import UserPerfil from '../pages/UserPerfil'
+import Perfil from '../pages/Perfil'
 import SucessMessage from '../pages/SuccessMessage'
 
 function AppStack() {
@@ -14,7 +14,7 @@ function AppStack() {
             <Route path='/' exact component={Landing} />
             <Route path='/study' component={TeacherList} />
             <Route path='/give-classes' component={TeacherForms} />
-            <Route path='/perfil' component={UserPerfil} />
+            <Route path='/perfil' component={Perfil} />
             <Route path='/success-message' component={SucessMessage} />
         </BrowserRouter>
     )

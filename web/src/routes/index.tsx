@@ -11,7 +11,7 @@ import AppStack from './AppStack'
 
 const Routes: React.FC = () => {
 
-    const context = useContext(AuthContext)
+    const { signIn, signed } = useContext(AuthContext)
 
     useEffect(() => {
 
@@ -21,15 +21,15 @@ const Routes: React.FC = () => {
         api.post('/validate-token', userData)
             .then(res => {
                 if (res.data) {
-                    context.signIn(userData)
+                    signIn(userData)
                 } else {
-                    context.signIn(null)
+                    signIn(null)
                     localStorage.removeItem('@proffyUser')
                 }
             }).catch(e => alert(e))
-    }, [])
+    })
 
-    return context.signed ? <AppStack></AppStack> :  <AuthRoutes />
+    return signed ? <AppStack></AppStack> : <AuthRoutes />
 }
 
 export default Routes;
