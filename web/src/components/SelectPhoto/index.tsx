@@ -56,6 +56,14 @@ const SelectPhoto: React.FC<SelectPhotoProps> = ({ avatar, onPhotoChange, handle
 
             api.post('/upload', formData)
                 .then(res => {
+
+                    const user = localStorage.getItem('@proffyUser') as any
+                    const data = JSON.parse(user)
+
+                    data.avatar = res.data
+
+                    localStorage.setItem('@proffyUser', JSON.stringify(data))
+
                     onPhotoChange(res.data)
                     handleToVisible(false)
                 })
@@ -77,7 +85,15 @@ const SelectPhoto: React.FC<SelectPhotoProps> = ({ avatar, onPhotoChange, handle
             api.delete('/upload', {
                 params: { email, image: photo }
             })
-                .then(res => {
+                .then(_ => {
+
+                    const user = localStorage.getItem('@proffyUser') as any
+                    const data = JSON.parse(user)
+
+                    data.avatar = ''
+
+                    localStorage.setItem('@proffyUser', JSON.stringify(data))
+
                     onPhotoChange('')
                     handleToVisible(false)
                 })

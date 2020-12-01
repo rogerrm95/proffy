@@ -22,13 +22,13 @@ function Landing() {
     // Pasta Estática //
     const url = 'http://localhost:8081/public'
 
-    
     const context = useContext(AuthContext)
     
     const [totalConnections, setTotalConnections] = useState(0)
     const [avatar, setAvatar] = useState('')
     const [name, setName] = useState('')
     
+    // Carrega o numero de conexões realizadas //
     useEffect(() => {
 
         api.get('/connections').then(res => {
@@ -38,6 +38,7 @@ function Landing() {
         })
     }, [])
 
+    // Carrega o nome e o avatar do usuário //
     useEffect(() => {
         const storage: any = localStorage.getItem('@proffyUser')
         const data = JSON.parse(storage)
@@ -47,6 +48,7 @@ function Landing() {
 
     }, [])
     
+    // Deslogar //
     function handleToLogout() {
 
         localStorage.removeItem('@proffyUser')
