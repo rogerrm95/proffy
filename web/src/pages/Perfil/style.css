@@ -47,6 +47,7 @@
 
 .perfil-info > h2 {
     color: var(--color-title-in-primary);
+    margin-bottom: 2rem;
 }
 
 /* MAIN - Formularios */
